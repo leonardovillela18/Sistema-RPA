@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contato - RPA</title>
+<style>
+:root{
+--bg:#dcdcdc;
+--header-h:86px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",Tahoma,sans-serif}
+body{background:var(--bg);min-height:100vh}
+
+header{
+background:#000;
+padding:15px 60px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+position:fixed;
+width:100%;
+top:0;
+z-index:1000;
+}
+
+.logo img{height:54px;width:auto;display:block}
+
+nav ul{display:flex;list-style:none;gap:30px;flex-wrap:wrap;justify-content:flex-end}
+nav a{color:#bbb;text-decoration:none;font-weight:700;transition:0.3s}
+nav a:hover{color:#fff}
+
+main{
+padding:calc(var(--header-h) + 26px) 0 30px;
+min-height:calc(100vh - 70px);
+display:flex;
+align-items:center;
+}
+
+.container{
+background:#fff;
+padding:34px;
+border-radius:12px;
+width:min(700px,92%);
+margin:0 auto;
+box-shadow:0 7px 16px rgba(0,0,0,0.12);
+}
+
+.container h1{margin-bottom:8px;color:#1a1a1a;font-size:2rem}
+.container p{margin-bottom:20px;color:#555;line-height:1.5}
+
+.item{margin-bottom:14px;font-size:1.08rem;color:#1f1f1f}
+
+.item a{color:#1f1f1f;text-decoration:none;font-weight:700}
+.item a:hover{text-decoration:underline}
+
+footer{background:#000;color:#aaa;text-align:center;padding:22px}
+
+@media (max-width:900px){
+header{padding:12px 20px}
+nav ul{gap:15px}
+}
+
+@media (max-width:560px){
+.logo img{height:44px}
+main{padding-top:96px}
+.container{padding:24px}
+.container h1{font-size:1.65rem}
+}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">
+<img src="../img/RPA_Logo.jpeg">
+</div>
+<nav>
+<ul>
+<li><a href="index.html">HOME</a></li>
+<li><a href="servicos.html">SERVIÇOS</a></li>
+<li><a href="produtos.html">PRODUTOS</a></li>
+<li><a href="sobre.html">SOBRE</a></li>
+<li><a href="contato.html">CONTATO</a></li>
+</ul>
+</nav>
+</header>
+
+<main>
+<div class="container">
+
+<h1>Contato</h1>
+<p>Fale com a equipe RPA para orçamento de peças e serviços para caminhões.</p>
+
+<div class="item">
+📞 Telefone: (16) 99999-1234
+</div>
+
+<div class="item">
+📧 Email: contato@rpaautomotiva.com
+</div>
+
+<div class="item">
+📸 Instagram:
+<a href="https://www.instagram.com/mecanica_diesel_rpa/" target="_blank">
+@mecanica_diesel_rpa
+</a>
+</div>
+
+</div>
+</main>
+
+<footer>
+© 2026 RPA Peças Automotivas
+</footer>
+
+</body>
+</html>
