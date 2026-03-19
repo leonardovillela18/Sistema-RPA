@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Serviços - RPA</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+background:#202124;
+color:#f1f3f4;
+}
+
+/* ===== MENU FIXO ===== */
+header{
+background:#000;
+padding:15px 60px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+position:fixed;
+width:100%;
+top:0;
+z-index:1000;
+}
+
+.logo img{
+height:50px;
+}
+
+nav ul{
+display:flex;
+list-style:none;
+gap:30px;
+}
+
+nav a{
+color:#bbb;
+text-decoration:none;
+font-weight:bold;
+transition:0.3s;
+}
+
+nav a:hover{
+color:#fff;
+}
+
+/* ===== GRID DE SERVIÇOS (PARTE SUPERIOR) ===== */
+
+.grid-servicos{
+margin-top:90px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+}
+
+.card{
+position:relative;
+height:380px;
+overflow:hidden;
+cursor:pointer;
+}
+
+.card img{
+width:100%;
+height:100%;
+object-fit:cover;
+transition:0.4s;
+filter:brightness(60%);
+}
+
+.card:hover img{
+transform:scale(1.05);
+filter:brightness(40%);
+}
+
+.card-text{
+position:absolute;
+bottom:20px;
+left:20px;
+right:20px;
+color:#fff;
+}
+
+.card-text h3{
+font-size:30px;
+margin-bottom:6px;
+font-weight:800;
+text-shadow:0 2px 8px rgba(0,0,0,0.7);
+}
+
+.card-text p{
+font-size:16px;
+color:#ddd;
+text-shadow:0 1px 4px rgba(0,0,0,0.6);
+}
+
+@media (max-width:780px){
+.grid-servicos{grid-template-columns:repeat(2,1fr)}
+.card{height:300px}
+}
+
+@media (max-width:480px){
+.grid-servicos{grid-template-columns:1fr}
+}
+
+/* ===== LISTA DETALHADA (AO DESCER) ===== */
+
+.lista-detalhes{
+padding:80px;
+background:#181a1b;
+}
+
+.lista-detalhes h2{
+margin-bottom:40px;
+text-align:center;
+font-size:32px;
+color:#f1f3f4;
+}
+
+.servico-item{
+background:#171717;
+padding:30px;
+margin-bottom:25px;
+border-radius:8px;
+box-shadow:0 10px 24px rgba(0,0,0,0.28);
+}
+
+.servico-item h3{
+margin-bottom:10px;
+color:#f1f3f4;
+}
+
+.servico-item p{
+color:#bdc1c6;
+line-height:1.6;
+}
+
+/* ===== FOOTER ===== */
+
+footer{
+background:#000;
+color:#aaa;
+text-align:center;
+padding:20px;
+}
+
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">
+<img src="../img/RPA_Logo.jpeg">
+</div>
+
+<nav>
+<ul>
+<li><a href="index.html">HOME</a></li>
+<li><a href="servicos.html">SERVIÇOS</a></li>
+<li><a href="produtos.html">PRODUTOS</a></li>
+<li><a href="sobre.html">SOBRE</a></li>
+<li><a href="contato.html">CONTATO</a></li>
+</ul>
+</nav>
+</header>
+
+<!-- ===== GRID MODERNO ===== -->
+
+<section class="grid-servicos">
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1581092918484-8313d3e5e9b3">
+<div class="card-text">
+<h3>Montagem de Motor</h3>
+<p>Especialistas em motores diesel</p>
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1605559424843-9e4c228ae38b">
+<div class="card-text">
+<h3>Troca de Peças</h3>
+<p>Peças originais e paralelas</p>
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1597764699510-8f7a9b35d4c4">
+<div class="card-text">
+<h3>Reparo Mecânico</h3>
+<p>Manutenção corretiva e preventiva</p>
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e">
+<div class="card-text">
+<h3>Sistema de Freios</h3>
+<p>Revisão completa de segurança</p>
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1625047509168-a7026f36de04">
+<div class="card-text">
+<h3>Suspensão</h3>
+<p>Conforto e estabilidade</p>
+</div>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1599255066828-6d6f90e1d2d1">
+<div class="card-text">
+<h3>Diagnóstico Eletrônico</h3>
+<p>Tecnologia avançada</p>
+</div>
+</div>
+
+</section>
+
+<!-- ===== LISTA DETALHADA AO DESCER ===== -->
+
+<section class="lista-detalhes">
+
+<h2>Detalhamento dos Serviços</h2>
+
+<div class="servico-item">
+<h3>Montagem Completa de Motores Diesel</h3>
+<p>Realizamos desmontagem, análise técnica, substituição de peças e montagem completa do motor com garantia e testes finais.</p>
+</div>
+
+<div class="servico-item">
+<h3>Troca e Instalação de Peças</h3>
+<p>Substituímos peças desgastadas por componentes novos de alta qualidade garantindo desempenho e segurança.</p>
+</div>
+
+<div class="servico-item">
+<h3>Manutenção Preventiva</h3>
+<p>Revisão periódica para evitar falhas mecânicas e aumentar a vida útil do veículo.</p>
+</div>
+
+<div class="servico-item">
+<h3>Sistema de Freios e Suspensão</h3>
+<p>Manutenção e troca de componentes essenciais para segurança e estabilidade do caminhão.</p>
+</div>
+
+<div class="servico-item">
+<h3>Diagnóstico Computadorizado</h3>
+<p>Utilizamos equipamentos modernos para identificar falhas eletrônicas com precisão.</p>
+</div>
+
+</section>
+
+<footer>
+© 2026 RPA Peças Automotivas
+</footer>
+
+</body>
+</html>
