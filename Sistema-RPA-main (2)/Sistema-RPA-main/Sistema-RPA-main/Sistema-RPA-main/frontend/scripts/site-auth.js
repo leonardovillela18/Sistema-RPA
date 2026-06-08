@@ -1,4 +1,12 @@
+﻿/*
+ * TITULO: Modulo de Autenticacao e Permissoes (RPAAuth)
+ * FUNCAO: Gerencia login, cadastro, sessao do usuario e regras de exibicao
+ * da interface conforme perfil (admin, usuario ou visitante).
+ */
+
 window.RPAAuth = (function () {
+const API_BASE_URL = window.RPA_USER_API_URL || 'http://localhost:3000';
+
 function safeUser(user) {
 	if (!user) {
 		return null;
@@ -16,19 +24,49 @@ function isAdmin() {
 	return currentUser()?.role === 'admin';
 }
 
-function login(loginValue, passwordValue) {
-	const users = RPADb.getUsers();
-	const matchedUser = users.find((user) => user.login === loginValue && user.password === passwordValue);
+async function postToUserApi(endpoint, payload) {
+	try {
+		const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(payload)
+		});
 
-	if (!matchedUser) {
-		return { ok: false, message: 'Login ou senha incorretos.' };
+		const data = await response.json();
+		if (!response.ok) {
+			return {
+				ok: false,
+				message: data?.message || 'Nao foi possivel concluir a operacao.'
+			};
+		}
+
+		return data;
+	} catch (error) {
+		return {
+			ok: false,
+			message: 'Nao foi possivel conectar ao servidor de usuarios. Inicie o backend em backend/server.js.'
+		};
 	}
-
-	RPADb.saveSession(safeUser(matchedUser));
-	return { ok: true, user: safeUser(matchedUser) };
 }
 
-function register(payload) {
+async function login(loginValue, passwordValue) {
+	const result = await postToUserApi('/api/users/login', {
+		login: loginValue,
+		password: passwordValue
+	});
+
+	if (!result.ok) {
+		return result;
+	}
+
+	const user = safeUser(result.user);
+	RPADb.saveSession({ ...user, token: result.token });
+	return { ok: true, user };
+}
+
+async function register(payload) {
 	const fullName = String(payload.fullName || '').trim();
 	const loginValue = String(payload.login || '').trim();
 	const email = String(payload.email || '').trim();
@@ -38,33 +76,32 @@ function register(payload) {
 		return { ok: false, message: 'Preencha todos os campos.' };
 	}
 
-	const users = RPADb.getUsers();
-	const duplicateLogin = users.some((user) => String(user.login).toLowerCase() === loginValue.toLowerCase());
-	const duplicateEmail = users.some((user) => String(user.email).toLowerCase() === email.toLowerCase());
-
-	if (duplicateLogin) {
-		return { ok: false, message: 'Esse login já existe.' };
-	}
-
-	if (duplicateEmail) {
-		return { ok: false, message: 'Esse email já está cadastrado.' };
-	}
-
-	const newUser = {
+	const result = await postToUserApi('/api/users/register', {
 		fullName,
 		login: loginValue,
 		email,
 		password,
-		role: 'user'
-	};
+	});
 
-	users.push(newUser);
-	RPADb.saveUsers(users);
-	RPADb.saveSession(safeUser(newUser));
-	return { ok: true, user: safeUser(newUser) };
+	if (!result.ok) {
+		return result;
+	}
+
+	const user = safeUser(result.user);
+	RPADb.saveSession({ ...user, token: result.token });
+	return { ok: true, user };
 }
 
 function logout() {
+	const session = currentUser();
+	if (session?.token) {
+		fetch(`${API_BASE_URL}/api/users/logout`, {
+			method: 'POST',
+			headers: {
+				Authorization: `Bearer ${session.token}`
+			}
+		});
+	}
 	RPADb.saveSession(null);
 }
 
@@ -123,7 +160,7 @@ function renderHeaderActions() {
 		actions.innerHTML = `
 			<span class="auth-pill">
 				<span>${user.fullName || user.login}</span>
-				<span class="auth-role">${user.role === 'admin' ? 'Admin' : 'Usuário'}</span>
+				<span class="auth-role">${user.role === 'admin' ? 'Admin' : 'UsuÃ¡rio'}</span>
 			</span>
 			<a class="auth-link" href="acesso.html?logout=1">Sair</a>
 		`;

@@ -1,0 +1,84 @@
+{
+  "users": [
+    {
+      "fullName": "Administrador do Sistema",
+      "login": "admin",
+      "email": "admin@rpa.local",
+      "role": "admin",
+      "passwordHash": "95e133fb4e001edd9dbe67f80af904d9f138686824923cbb7a12302fe6a7a0ed8acaedaa9fbcec657821eb8ef740451b5294da05f401168dabd350b07dd1fb5c",
+      "passwordSalt": "840615031005aa3b6a5cb6172cc94d9a"
+    }
+  ],
+  "sessions": [
+    {
+      "token": "0be990c319d6b9ce38f5f7a585cd2fb8887b48b45862fad367ebec95a76daf87",
+      "login": "admin",
+      "role": "admin",
+      "expiresAt": 1781009371809
+    },
+    {
+      "token": "98050eebfa2ffb41c65282dc467b8eba24286c0c384bc7e1c0f1da9eea46c9e1",
+      "login": "admin",
+      "role": "admin",
+      "expiresAt": 1781012038745
+    },
+    {
+      "token": "57f47f7979ffc359e126cad9f600fe68838c5ed10e0ae65853217925dd54f5a1",
+      "login": "admin",
+      "role": "admin",
+      "expiresAt": 1781012056623
+    }
+  ],
+  "products": [
+    {
+      "id": "product-1780943240400-pjq4ep",
+      "name": "teste",
+      "price": "R$ 123,00",
+      "shortDescription": "teste",
+      "details": "",
+      "imageAlt": "teste",
+      "imageUrl": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0AgMAAABAo+6hAAAACVBMVEVXV1cAAAAu+i4sl4eLAAAASklEQVRo3u3SoRGAQBAEwTMQH2aDgGhIg48SiYUCzH+3HnFVtwUAAMDoUk+s6rf1X9+ZkkqWumduR21t/76+LrHBPuoUAAAAgzsBIGIRMZ6VDFcAAAAASUVORK5CYII="
+    }
+  ],
+  "contacts": {
+    "phoneLabel": "+55 16 99105-8868",
+    "phoneLink": "https://wa.me/5516991058868",
+    "emailLabel": "Comercial@rpamecanica.com.br",
+    "emailLink": "mailto:Comercial@rpamecanica.com.br",
+    "instagramLabel": "@mecanica_diesel_rpa",
+    "instagramLink": "https://www.instagram.com/mecanica_diesel_rpa/",
+    "address": "R. Profa. Regina Lucia Bin Caun - Porto Seguro, Ribeirao Preto - SP, 14079-602",
+    "mapsLink": "https://www.google.com/maps/search/?api=1&query=R.%20Profa.%20Regina%20Lucia%20Bin%20Caun%20-%20Porto%20Seguro%2C%20Ribeirao%20Preto%20-%20SP%2C%2014079-602",
+    "mapsEmbed": "https://www.google.com/maps?q=R.%20Profa.%20Regina%20Lucia%20Bin%20Caun%20-%20Porto%20Seguro%2C%20Ribeirao%20Preto%20-%20SP%2C%2014079-602&output=embed"
+  },
+  "about": {
+    "introTitle": "Sobre Nos - RPA Pecas Automotivas",
+    "introText": "Atuamos com pecas e servicos mecanicos para linha pesada, unindo atendimento tecnico, agilidade no diagnostico e compromisso com a seguranca das operacoes.",
+    "blocks": [
+      {
+        "badge": "DESDE 2012",
+        "title": "Nossa Historia",
+        "text": "Fundada em 2012, a RPA Pecas nasceu com o objetivo de oferecer pecas e manutencao especializada para caminhoes pesados. Com crescimento constante, estruturamos nosso estoque e processos para atender com rapidez transportadoras e autonomos da regiao.",
+        "imageUrl": "../../img/RPA_Logo.jpeg",
+        "imageAlt": "Logo da RPA Pecas Automotivas",
+        "inversed": false
+      },
+      {
+        "badge": "RELACIONAMENTO",
+        "title": "Parcerias",
+        "text": "Trabalhamos com transportadoras, empresas logisticas e oficinas especializadas em toda a regiao. Nossas parcerias sao baseadas em confianca, disponibilidade de pecas e suporte tecnico continuo para reduzir paradas inesperadas.",
+        "imageUrl": "../../img/imj_sobre1.jpg",
+        "imageAlt": "Profissional em manutencao de caminhoes",
+        "inversed": true
+      },
+      {
+        "badge": "PROCESSO",
+        "title": "Como Funcionamos",
+        "text": "Nossa empresa atua com estoque proprio, atendimento rapido e equipe tecnica especializada em montagem, troca e reparos. Cada servico segue checklist de inspecao para garantir desempenho, seguranca e maior vida util dos componentes.",
+        "imageUrl": "../../img/imj_sobre2.jpg",
+        "imageAlt": "Caminhao em manutencao na oficina",
+        "inversed": false
+      }
+    ]
+  }
+}

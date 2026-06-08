@@ -1,10 +1,25 @@
+/*
+ * TITULO: Camada de Banco no Frontend (RPADb)
+ * FUNCAO: Centraliza leitura/escrita de dados no navegador, sincroniza com a API
+ * do backend e expoe metodos unificados para usuarios, produtos, contatos e conteudo.
+ */
+
 window.RPADb = (function () {
+const API_BASE_URL = window.RPA_USER_API_URL || 'http://localhost:3000';
+
 const KEYS = {
 	users: 'rpa-users-db',
 	session: 'rpa-session-db',
 	products: 'rpa-products-db',
 	contacts: 'rpa-contacts-db',
 	about: 'rpa-about-db'
+};
+
+const API_ENTITIES = {
+	users: 'users',
+	products: 'products',
+	contacts: 'contacts',
+	about: 'about'
 };
 
 const DEFAULT_CONTACTS = {
@@ -75,6 +90,59 @@ function write(key, value) {
 	localStorage.setItem(key, JSON.stringify(value));
 }
 
+function getStoredSession() {
+	return read(KEYS.session, null);
+}
+
+function requestJsonSync(method, endpoint, payload) {
+	try {
+		const request = new XMLHttpRequest();
+		request.open(method, `${API_BASE_URL}${endpoint}`, false);
+		request.setRequestHeader('Content-Type', 'application/json');
+		const session = getStoredSession();
+		if (session?.token) {
+			request.setRequestHeader('Authorization', `Bearer ${session.token}`);
+		}
+		request.send(payload ? JSON.stringify(payload) : null);
+
+		if (request.status < 200 || request.status >= 300) {
+			return null;
+		}
+
+		return request.responseText ? JSON.parse(request.responseText) : null;
+	} catch (error) {
+		return null;
+	}
+}
+
+function pushToServer(entity, value) {
+	requestJsonSync('POST', `/api/db/${entity}`, { data: value });
+}
+
+function loadFromServer() {
+	const snapshot = requestJsonSync('GET', '/api/public/snapshot');
+	if (!snapshot?.ok || !snapshot.data) {
+		return;
+	}
+
+	const data = snapshot.data;
+	if (Array.isArray(data.users)) {
+		write(KEYS.users, data.users);
+	}
+
+	if (Array.isArray(data.products)) {
+		write(KEYS.products, data.products);
+	}
+
+	if (data.contacts && typeof data.contacts === 'object') {
+		write(KEYS.contacts, data.contacts);
+	}
+
+	if (data.about && typeof data.about === 'object') {
+		write(KEYS.about, data.about);
+	}
+}
+
 function ensureSeedData() {
 	const users = read(KEYS.users, []);
 	if (!users.some((user) => String(user.login).toLowerCase() === ADMIN_USER.login)) {
@@ -93,6 +161,8 @@ function ensureSeedData() {
 	if (localStorage.getItem(KEYS.about) === null) {
 		write(KEYS.about, DEFAULT_ABOUT);
 	}
+
+	loadFromServer();
 }
 
 function getUsers() {
@@ -101,6 +171,7 @@ function getUsers() {
 
 function saveUsers(users) {
 	write(KEYS.users, users);
+	pushToServer(API_ENTITIES.users, users);
 }
 
 function getSession() {
@@ -122,6 +193,7 @@ function getProducts() {
 
 function saveProducts(products) {
 	write(KEYS.products, products);
+	pushToServer(API_ENTITIES.products, products);
 }
 
 function getContacts() {
@@ -130,6 +202,7 @@ function getContacts() {
 
 function saveContacts(contacts) {
 	write(KEYS.contacts, contacts);
+	pushToServer(API_ENTITIES.contacts, contacts);
 }
 
 function getAboutContent() {
@@ -138,6 +211,7 @@ function getAboutContent() {
 
 function saveAboutContent(aboutContent) {
 	write(KEYS.about, aboutContent);
+	pushToServer(API_ENTITIES.about, aboutContent);
 }
 
 function createId(prefix) {
