@@ -3,8 +3,8 @@
 --surface:#171717;
 --text:#f1f3f4;
 --muted:#bdc1c6;
---accent:#f2c316;
---accent-strong:#d9ad0d;
+--accent:#c62828;
+--accent-strong:#a61e1e;
 --header-h:86px;
 }
 
@@ -90,7 +90,7 @@ padding:12px 14px;
 outline:none;
 }
 
-.field input:focus{border-color:rgba(242,195,22,0.85);box-shadow:0 0 0 3px rgba(242,195,22,0.12)}
+.field input:focus{border-color:rgba(198,40,40,0.85);box-shadow:0 0 0 3px rgba(198,40,40,0.12)}
 
 .login-btn{
 width:100%;
@@ -174,7 +174,7 @@ outline:none;
 font-family:inherit;
 }
 .contact-field textarea{min-height:80px;resize:vertical}
-.contact-field input:focus,.contact-field textarea:focus{border-color:rgba(242,195,22,0.8);box-shadow:0 0 0 3px rgba(242,195,22,0.12)}
+.contact-field input:focus,.contact-field textarea:focus{border-color:rgba(198,40,40,0.8);box-shadow:0 0 0 3px rgba(198,40,40,0.12)}
 
 .contact-actions{display:flex;justify-content:flex-end;gap:12px;flex-wrap:wrap;margin-top:20px}
 .contact-actions button{border:none;border-radius:10px;padding:12px 18px;font-weight:800;cursor:pointer}

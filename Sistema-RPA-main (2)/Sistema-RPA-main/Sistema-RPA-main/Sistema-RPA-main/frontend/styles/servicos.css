@@ -3,7 +3,8 @@
 --header-h:86px;
 --title:#f1f3f4;
 --muted:#bdc1c6;
---accent:#f2c316;
+--accent:#c62828;
+--accent-strong:#a61e1e;
 --surface:#171717;
 }
 
@@ -104,14 +105,14 @@ margin-bottom:22px;
 display:inline-block;
 padding:11px 22px;
 background:var(--accent);
-color:#171717;
+color:#fff;
 border-radius:8px;
 font-weight:800;
 text-decoration:none;
 font-size:0.97rem;
 transition:background 0.2s;
 }
-.card-detalhe a:hover{background:#d9ad0d;}
+.card-detalhe a:hover{background:var(--accent-strong);}
 
 /* estado ativo */
 .card.ativo img{opacity:0;transform:scale(1.04);}
@@ -132,7 +133,7 @@ display:inline-block;
 margin-bottom:10px;
 padding:4px 10px;
 background:var(--accent);
-color:#181818;
+color:#fff;
 font-size:0.75rem;
 font-weight:700;
 border-radius:999px;

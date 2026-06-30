@@ -9,26 +9,7 @@
       "passwordSalt": "840615031005aa3b6a5cb6172cc94d9a"
     }
   ],
-  "sessions": [
-    {
-      "token": "0be990c319d6b9ce38f5f7a585cd2fb8887b48b45862fad367ebec95a76daf87",
-      "login": "admin",
-      "role": "admin",
-      "expiresAt": 1781009371809
-    },
-    {
-      "token": "98050eebfa2ffb41c65282dc467b8eba24286c0c384bc7e1c0f1da9eea46c9e1",
-      "login": "admin",
-      "role": "admin",
-      "expiresAt": 1781012038745
-    },
-    {
-      "token": "57f47f7979ffc359e126cad9f600fe68838c5ed10e0ae65853217925dd54f5a1",
-      "login": "admin",
-      "role": "admin",
-      "expiresAt": 1781012056623
-    }
-  ],
+  "sessions": [],
   "products": [
     {
       "id": "product-1780943240400-pjq4ep",

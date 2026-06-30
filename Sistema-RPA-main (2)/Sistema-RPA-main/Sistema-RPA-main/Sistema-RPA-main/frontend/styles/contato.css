@@ -3,6 +3,8 @@
 --surface:#171717;
 --text:#f1f3f4;
 --muted:#bdc1c6;
+--accent:#c62828;
+--accent-strong:#a61e1e;
 --header-h:86px;
 }
 
@@ -76,8 +78,8 @@ display:inline-flex;
 align-items:center;
 justify-content:center;
 padding:12px 18px;
-background:#f2c316;
-color:#171717;
+background:var(--accent);
+color:#fff;
 border-radius:8px;
 font-weight:800;
 text-decoration:none;
@@ -85,7 +87,7 @@ transition:0.25s;
 margin-top:6px;
 }
 
-.map-link:hover{background:#d9ad0d;text-decoration:none}
+.map-link:hover{background:var(--accent-strong);text-decoration:none}
 
 button.map-link{border:none;appearance:none;cursor:pointer}
 
@@ -136,12 +138,12 @@ padding:12px 14px;
 outline:none;
 }
 .contact-field textarea{min-height:92px;resize:vertical}
-.contact-field input:focus,.contact-field textarea:focus{border-color:rgba(242,195,22,0.8);box-shadow:0 0 0 3px rgba(242,195,22,0.12)}
+.contact-field input:focus,.contact-field textarea:focus{border-color:rgba(198,40,40,0.8);box-shadow:0 0 0 3px rgba(198,40,40,0.12)}
 .contact-actions{display:flex;justify-content:flex-end;gap:12px;flex-wrap:wrap;margin-top:18px}
 .contact-actions .secondary-btn,.contact-actions .primary-btn{border:none;border-radius:10px;padding:12px 18px;font-weight:800;cursor:pointer}
 .contact-actions .secondary-btn{background:#2a2a2a;color:#fff}
-.contact-actions .primary-btn{background:#f2c316;color:#171717}
-.contact-actions .primary-btn:hover{background:#d9ad0d}
+.contact-actions .primary-btn{background:var(--accent);color:#fff}
+.contact-actions .primary-btn:hover{background:var(--accent-strong)}
 
 .map-frame{
 width:100%;

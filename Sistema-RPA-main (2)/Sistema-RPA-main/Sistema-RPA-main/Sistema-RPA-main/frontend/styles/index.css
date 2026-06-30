@@ -4,7 +4,8 @@
 --surface-2:#202124;
 --text:#ffffff;
 --muted:#bdc1c6;
---accent:#f2c316;
+--accent:#c62828;
+--accent-strong:#a61e1e;
 --header-h:86px;
 }
 
@@ -53,7 +54,7 @@ position:absolute;
 inset:0;
 background:
 linear-gradient(90deg,rgba(0,0,0,0.82) 0%,rgba(0,0,0,0.56) 46%,rgba(0,0,0,0.2) 100%),
-url("../../img/manutencao_de_caminhao.jpeg") center/cover no-repeat;
+url("../../img/img_home.png") center/cover no-repeat;
 }
 
 .hero-inner{
@@ -85,7 +86,7 @@ font-weight:700;
 transition:0.25s;
 }
 
-.hero button:hover{background:#d9ad0d}
+.hero button:hover{background:var(--accent-strong)}
 
 .hero .ghost{
 background:transparent;
@@ -192,7 +193,7 @@ align-items:center;
 justify-content:center;
 padding:12px 18px;
 background:var(--accent);
-color:#171717;
+color:#fff;
 border-radius:8px;
 font-weight:800;
 text-decoration:none;
@@ -200,7 +201,7 @@ transition:0.25s;
 margin-top:6px;
 }
 
-.map-link:hover{background:#d9ad0d;text-decoration:none}
+.map-link:hover{background:var(--accent-strong);text-decoration:none}
 
 .map-frame{
 width:100%;
