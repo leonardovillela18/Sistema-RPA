@@ -14,8 +14,7 @@ function fail(string $message, int $status=422): never { respond(['ok'=>false,'m
 function config(): array {
     static $config;
     if ($config === null) {
-        $path = getenv('RPA_CONFIG') ?: dirname(__DIR__,3).'/private/config.php';
-        if (!is_file($path)) $path=dirname(__DIR__,3).'/rpa-private/config.php';
+        $path = getenv('RPA_CONFIG') ?: '/home1/rpamec18/private/config.php';
         if (!is_file($path)) throw new RuntimeException('Configuração privada ausente.');
         $config=require $path;
     }
