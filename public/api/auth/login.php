@@ -1,7 +1,10 @@
 <?php
 require dirname(__DIR__).'/bootstrap.php';
 method('POST'); csrf(); $data=input();
-$login=field($data,'login',100); $password=field($data,'password',1024);
+$login=field($data,'login',100);
+$password=$data['password']??null;
+// Preserve espaços da senha exatamente como foram cadastrados.
+if (!is_string($password) || $password==='' || strlen($password)>1024) fail('Informe uma senha válida.');
 $key=hash('sha256',$_SERVER['REMOTE_ADDR']??'unknown');
 $pdo=db(); $pdo->beginTransaction();
 $q=$pdo->prepare('INSERT IGNORE INTO login_attempts (identity_hash,attempts,window_start) VALUES (?,0,?)'); $q->execute([$key,time()]);

@@ -1,7 +1,7 @@
 <?php
 // Executar pelo terminal do cPanel; nunca publicar este arquivo.
 if(PHP_SAPI!=='cli') { http_response_code(404); exit; }
-$configPath=getenv('RPA_CONFIG') ?: '/home1/rpamec18/rpa-private/config.php';
+$configPath=getenv('RPA_CONFIG') ?: '/home1/rpamec18/private/config.php';
 $config=require $configPath;
 function ask(string $label): string { fwrite(STDOUT,$label); return trim(fgets(STDIN)); }
 $name=ask('Nome: '); $login=ask('Login: '); $email=ask('Email: ');

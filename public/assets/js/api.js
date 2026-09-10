@@ -8,7 +8,11 @@ window.RPAApi = (() => {
   }
   const response=await fetch(url,options); let result;
   try {result=await response.json();} catch {throw new Error('Resposta inválida do servidor. Verifique a configuração PHP.');}
-  if(!response.ok || !result.ok) throw new Error(result.message || 'Não foi possível concluir a operação.');
+  if(!response.ok || !result.ok) {
+   const error=new Error(result.message || 'Não foi possível concluir a operação.');
+   error.status=response.status;
+   throw error;
+  }
   return result;
  }
  async function reload() { data=(await request('/api/public/snapshot.php')).data; }

@@ -1,0 +1,87 @@
+(() => {
+ const panel=document.getElementById('usersPanel');
+ const rows=document.getElementById('usersRows');
+ const message=document.getElementById('usersMessage');
+ const dialog=document.getElementById('userDialog');
+ const form=document.getElementById('userForm');
+ const formMessage=document.getElementById('formMessage');
+ const profileFields=document.getElementById('profileFields');
+ const passwordFields=document.getElementById('passwordFields');
+ const saveButton=document.getElementById('saveUser');
+ let users=[],mode='create',selectedId=null,busy=false;
+ const redirect=() => { panel.hidden=true; dialog.close(); location.replace('/acesso.html?next=usuarios.html'); };
+ function showError(error,target=message) {
+  if(error.status===401) { redirect(); return; }
+  target.textContent=error.message || 'Não foi possível concluir a operação.';
+  target.classList.add('error');
+ }
+ const endpoint=action=>'/api/admin/users/'+action+'.php';
+ function formatDate(value) {
+  // MySQL fornece hora local sem fuso; preserve o horário registrado pelo servidor.
+  const match=/^(\d{4})-(\d{2})-(\d{2}) (\d{2}:\d{2}:\d{2})$/.exec(value||'');
+  return match ? `${match[3]}/${match[2]}/${match[1]} ${match[4]}` : '—';
+ }
+ function render() {
+  rows.replaceChildren();
+  for(const user of users) {
+   const row=document.createElement('tr');
+   const self=Number(user.id)===Number(RPAAuth.currentUser().id);
+   for(const value of [user.id,user.name,user.login,user.email,formatDate(user.created_at),formatDate(user.updated_at)]) {
+    const cell=document.createElement('td'); cell.textContent=value; row.append(cell);
+   }
+   if(self) { const badge=document.createElement('span'); badge.className='self-badge'; badge.textContent='Você'; row.children[1].append(badge); }
+   const cell=document.createElement('td'),actions=document.createElement('div'); actions.className='row-actions';
+   for(const [action,label] of [['update','Editar'],['change-password','Alterar senha'],['delete','Excluir']]) {
+    const button=document.createElement('button'); button.type='button'; button.textContent=label;
+    button.dataset.action=action; button.dataset.id=user.id; button.className=action==='delete'?'danger':'secondary';
+    if(action==='delete' && (self || users.length===1)) { button.disabled=true; button.title=self?'Você não pode excluir a própria conta.':'Não é permitido excluir o último administrador.'; }
+    actions.append(button);
+   }
+   cell.append(actions); row.append(cell); rows.append(row);
+  }
+ }
+ async function reload() { users=(await RPAApi.request(endpoint('list'))).data; render(); }
+ function openForm(action,user=null) {
+  if(busy) return;
+  mode=action; selectedId=user?.id??null; form.reset(); formMessage.textContent='';
+  profileFields.hidden=profileFields.disabled=action==='change-password';
+  passwordFields.hidden=passwordFields.disabled=action==='update';
+  document.getElementById('dialogTitle').textContent=action==='create'?'Novo administrador':action==='update'?'Editar administrador':`Alterar senha — ${user.name}`;
+  if(user) for(const key of ['name','login','email']) form.elements[key].value=user[key];
+  dialog.showModal();
+  (action==='change-password'?form.elements.password:form.elements.name).focus();
+ }
+ document.getElementById('newUser').addEventListener('click',()=>openForm('create'));
+ for(const id of ['closeDialog','cancelDialog']) document.getElementById(id).addEventListener('click',()=>{if(!busy) dialog.close();});
+ dialog.addEventListener('cancel',event=>{if(busy) event.preventDefault();});
+ dialog.addEventListener('close',()=>form.reset());
+ rows.addEventListener('click',async event=>{
+  const button=event.target.closest('button[data-action]'); if(!button || busy) return;
+  const user=users.find(item=>String(item.id)===button.dataset.id); if(!user) return;
+  if(button.dataset.action!=='delete') { openForm(button.dataset.action,user); return; }
+  if(!confirm(`Excluir o administrador "${user.name}" (${user.login})? Esta ação não pode ser desfeita.`)) return;
+  busy=true; button.disabled=true; message.textContent='';
+  try { await RPAApi.request(endpoint('delete'),{id:user.id}); await reload(); message.classList.remove('error'); message.textContent='Administrador excluído.'; }
+  catch(error) { showError(error); button.disabled=false; }
+  finally { busy=false; }
+ });
+ form.addEventListener('submit',async event=>{
+  event.preventDefault(); if(busy) return;
+  const data=Object.fromEntries(new FormData(form)); if(selectedId!==null) data.id=selectedId;
+  if(mode!=='update') {
+   if([...data.password].length<12) { formMessage.textContent='A senha deve ter pelo menos 12 caracteres.'; return; }
+   if(new TextEncoder().encode(data.password).length>72) { formMessage.textContent='A senha deve ter no máximo 72 bytes.'; return; }
+   if(data.password!==data.confirmPassword) { formMessage.textContent='As senhas não coincidem.'; return; }
+  }
+  busy=true; saveButton.disabled=true; formMessage.textContent='';
+  try {
+   await RPAApi.request(endpoint(mode),data);
+   dialog.close(); await reload(); message.classList.remove('error'); message.textContent=mode==='change-password'?'Senha alterada.':'Administrador salvo.';
+  } catch(error) { showError(error,dialog.open?formMessage:message); }
+  finally { busy=false; saveButton.disabled=false; }
+ });
+ RPAAuth.ready.then(async()=>{
+  if(!RPAAuth.isAdmin()) { redirect(); return; }
+  await reload(); document.getElementById('loading').hidden=true; panel.hidden=false;
+ }).catch(error=>{ document.getElementById('loading').textContent='Não foi possível carregar os administradores. Recarregue a página para tentar novamente.'; showError(error); });
+})();

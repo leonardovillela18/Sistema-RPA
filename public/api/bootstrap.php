@@ -49,7 +49,11 @@ function admin(): ?array {
     $q=db()->prepare('SELECT id,name,login FROM admins WHERE id=?'); $q->execute([$_SESSION['admin_id']]);
     $user=$q->fetch(); return $user ? $user+['role'=>'admin'] : null;
 }
-function require_admin(): void { method('POST'); if (!admin()) fail('Acesso administrativo necessário.',401); csrf(); }
+function require_admin(string $httpMethod='POST'): void {
+    method($httpMethod);
+    if (!admin()) fail('Sessão expirada. Entre novamente.',401);
+    if ($httpMethod !== 'GET') csrf();
+}
 function input(): array {
     if (str_starts_with($_SERVER['CONTENT_TYPE']??'','multipart/form-data')) return $_POST;
     try { $data=json_decode(file_get_contents('php://input'),true,32,JSON_THROW_ON_ERROR); } catch(JsonException $e) { fail('JSON inválido.'); }

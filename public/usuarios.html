@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Administradores - RPA</title>
+<link rel="stylesheet" href="/assets/css/site-auth.css">
+<link rel="stylesheet" href="/assets/css/usuarios.css">
+</head>
+<body>
+<header>
+<div class="logo"><img src="/assets/img/RPA_Logo.jpeg" alt="Logo RPA Peças Automotivas"></div>
+<nav aria-label="Navegação principal"><ul>
+<li><a href="/index.html">HOME</a></li>
+<li><a href="/servicos.html">SERVIÇOS</a></li>
+<li><a href="/produtos.html">PRODUTOS</a></li>
+<li><a href="/sobre.html">SOBRE NÓS</a></li>
+<li><a href="/contato.html">CONTATO</a></li>
+</ul></nav>
+</header>
+<main>
+<p id="loading" role="status">Verificando acesso…</p>
+<noscript>Ative o JavaScript e faça login para gerenciar administradores.</noscript>
+<section id="usersPanel" hidden aria-labelledby="usersTitle">
+<div class="topbar">
+<div><h1 id="usersTitle">Administradores</h1><p>Gerencie as contas com acesso à administração do site.</p></div>
+<button id="newUser" type="button">Novo administrador</button>
+</div>
+<p id="usersMessage" role="status" aria-live="polite"></p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Lista de administradores">
+<table>
+<caption class="sr-only">Contas administrativas cadastradas</caption>
+<thead><tr><th scope="col">ID</th><th scope="col">Nome</th><th scope="col">Login</th><th scope="col">E-mail</th><th scope="col">Criação</th><th scope="col">Última atualização</th><th scope="col">Ações</th></tr></thead>
+<tbody id="usersRows"></tbody>
+</table>
+</div>
+</section>
+</main>
+<dialog id="userDialog" aria-labelledby="dialogTitle">
+<form id="userForm">
+<div class="dialog-head"><h2 id="dialogTitle">Novo administrador</h2><button class="secondary" id="closeDialog" type="button" aria-label="Fechar">×</button></div>
+<fieldset id="profileFields">
+<label for="userName">Nome</label><input id="userName" name="name" autocomplete="name" maxlength="150" required>
+<label for="userLogin">Login</label><input id="userLogin" name="login" autocomplete="off" maxlength="100" required>
+<label for="userEmail">E-mail</label><input id="userEmail" name="email" type="email" autocomplete="email" maxlength="254" required>
+</fieldset>
+<fieldset id="passwordFields">
+<label for="userPassword">Nova senha</label><input id="userPassword" name="password" type="password" autocomplete="new-password" aria-describedby="passwordHint" required>
+<p id="passwordHint">Pelo menos 12 caracteres e no máximo 72 bytes. Letras acentuadas podem ocupar mais de um byte.</p>
+<label for="confirmPassword">Confirmar nova senha</label><input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" required>
+</fieldset>
+<p id="formMessage" role="alert"></p>
+<div class="form-actions"><button id="cancelDialog" class="secondary" type="button">Cancelar</button><button id="saveUser" type="submit">Salvar</button></div>
+</form>
+</dialog>
+<footer>© 2026 RPA Peças Automotivas</footer>
+<script src="/assets/js/api.js"></script>
+<script src="/assets/js/site-auth.js"></script>
+<script src="/assets/js/usuarios.js"></script>
+</body>
+</html>

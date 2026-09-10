@@ -13,6 +13,7 @@ public/                 Única pasta publicável; copiar seu conteúdo para publ
   api/auth/             Login, sessão e logout
   api/public/           Consulta do conteúdo público
   api/admin/            Alterações protegidas por sessão e CSRF
+  api/admin/users/      Listagem e gerenciamento dos administradores
   api/bootstrap.php     Configuração, banco, validação e uploads
   uploads/products/     Imagens enviadas para produtos
   uploads/about/        Imagens enviadas para Sobre Nós
@@ -25,3 +26,5 @@ README_DEPLOY.md        Instalação, publicação e verificações
 `database/` fica fora de `public/` porque o SQL é importado pelo phpMyAdmin, não servido ao visitante. A configuração real fica fora da área pública e não é versionada. Os arquivos JavaScript em `public/assets/js/` executam no navegador e são necessários para o funcionamento das páginas.
 
 Consulte [README_DEPLOY.md](README_DEPLOY.md) para configurar o banco, criar o administrador e publicar na HostGator. Abrir os arquivos HTML diretamente não substitui a execução do PHP e do banco.
+
+Após entrar, use **Administradores** no cabeçalho para acessar `/usuarios.html`. Essa área permite criar contas, editar nome/login/e-mail, alterar senhas e excluir outros administradores. Reutiliza a tabela `admins`, sem migração de banco. Consulte [o roteiro de testes](docs/TESTES_ADMINISTRADORES.md).
