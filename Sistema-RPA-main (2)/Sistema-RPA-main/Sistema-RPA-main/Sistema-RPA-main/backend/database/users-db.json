@@ -1,9 +1,0 @@
-[
-  {
-    "fullName": "Administrador do Sistema",
-    "login": "admin",
-    "email": "admin@rpa.local",
-    "password": "admin1",
-    "role": "admin"
-  }
-]

@@ -1,0 +1,98 @@
+:root{
+--bg:#202124;
+--surface:#171717;
+--text:#f1f3f4;
+--muted:#bdc1c6;
+--accent:#c62828;
+--accent-strong:#a61e1e;
+--header-h:86px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",Tahoma,sans-serif}
+body{background:var(--bg);color:var(--text);min-height:100vh}
+
+header{
+background:#000;
+padding:15px 60px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+position:fixed;
+width:100%;
+top:0;
+z-index:1000;
+gap:18px;
+flex-wrap:wrap;
+}
+
+.logo img{height:auto;max-height:70px;width:auto;display:block;max-width:200px}
+nav ul{display:flex;list-style:none;gap:30px;flex-wrap:wrap;justify-content:flex-end}
+nav a{color:#bbb;text-decoration:none;font-weight:700;transition:0.3s}
+nav a:hover{color:#fff}
+
+main{
+padding:calc(var(--header-h) + 24px) 0 34px;
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.login-card{
+width:min(460px,92%);
+background:var(--surface);
+border-radius:18px;
+padding:26px;
+box-shadow:0 18px 48px rgba(0,0,0,0.35);
+border:1px solid rgba(255,255,255,0.05);
+}
+
+.login-card h1{
+font-size:clamp(1.8rem,4vw,2.2rem);
+margin-bottom:18px;
+color:#fff;
+}
+
+.field{display:grid;gap:8px;margin-bottom:14px}
+.field label{font-weight:700;color:#e7e7e7}
+.field input{
+width:100%;
+border-radius:12px;
+border:1px solid rgba(255,255,255,0.12);
+background:#1e1e1e;
+color:var(--text);
+padding:12px 14px;
+outline:none;
+}
+
+.field input:focus{border-color:rgba(198,40,40,0.85);box-shadow:0 0 0 3px rgba(198,40,40,0.12)}
+
+.login-btn{
+width:100%;
+border:none;
+border-radius:12px;
+padding:13px 16px;
+background:var(--accent);
+color:#171717;
+font-weight:800;
+cursor:pointer;
+margin-top:2px;
+}
+
+.login-btn:hover{background:var(--accent-strong)}
+
+.message{min-height:24px;margin-top:12px;font-weight:700}
+.message.error{color:#ffb4b4}
+.message.success{color:#8ae08a}
+
+footer{background:#000;color:#aaa;text-align:center;padding:22px}
+
+@media (max-width:900px){
+header{padding:12px 20px}
+nav ul{gap:15px}
+}
+
+@media (max-width:560px){
+main{padding-top:96px}
+.login-card{padding:22px}
+}

@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - /bin/mkdir -p /home1/rpamec18/public_html
+    - /bin/cp -R public/. /home1/rpamec18/public_html/

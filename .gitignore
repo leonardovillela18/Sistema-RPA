@@ -1,0 +1,9 @@
+.venv/
+.test-runtime/
+private/config.php
+.env
+.env.*
+public/uploads/products/*
+!public/uploads/products/.gitkeep
+public/uploads/about/*
+!public/uploads/about/.gitkeep
