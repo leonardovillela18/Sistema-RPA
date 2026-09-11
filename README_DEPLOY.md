@@ -1,6 +1,6 @@
-## Correção de compatibilidade da autenticação
+## Atualização: superadmin, senhas e histórico
 
-Esta versão utiliza somente as colunas existentes da tabela `admins`. Não execute migrações nem reimporte o schema em produção. Publique os arquivos de código corrigidos mantendo a configuração privada existente.
+Esta versão requer a migração `database/migrations/002_superadmin_password_audit.sql` **antes de publicar o código** em bancos existentes. Confira a existência de `leonardo.villela`, que será promovido a superadmin; as demais contas continuam como admins. Veja [o procedimento completo](docs/SUPERADMIN_SENHAS_AUDITORIA.md). Não reimporte o schema em produção.
 
 # Publicação na HostGator
 

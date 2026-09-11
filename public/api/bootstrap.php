@@ -5,6 +5,9 @@ header('Cache-Control: no-store');
 header('X-Content-Type-Options: nosniff');
 set_exception_handler(function (Throwable $e): void {
     error_log((string)$e);
+    if ($e instanceof PDOException && in_array((int)($e->errorInfo[1]??0),[1054,1146],true)) {
+        respond(['ok'=>false,'message'=>'Atualização do banco pendente. Contate o responsável pelo sistema.'],503);
+    }
     respond(['ok'=>false, 'message'=>'Não foi possível concluir a operação no servidor.'], 500);
 });
 function respond(array $data, int $status=200): never {
@@ -46,13 +49,19 @@ function csrf(): void {
 function admin(): ?array {
     session_open();
     if (empty($_SESSION['admin_id'])) return null;
-    $q=db()->prepare('SELECT id,name,login,email FROM admins WHERE id=?'); $q->execute([$_SESSION['admin_id']]);
-    $user=$q->fetch(); return $user ?: null;
+    $q=db()->prepare('SELECT id,name,login,email,role,must_change_password,session_version FROM admins WHERE id=?'); $q->execute([$_SESSION['admin_id']]);
+    $user=$q->fetch();
+    if (!$user || !isset($_SESSION['session_version']) || (int)$_SESSION['session_version']!==(int)$user['session_version']) return null;
+    unset($user['session_version']);
+    $user['must_change_password']=(bool)$user['must_change_password'];
+    return $user;
 }
 function require_admin(string $httpMethod='POST'): void {
     method($httpMethod);
     $user=admin();
     if (!$user) fail('Sessão expirada. Entre novamente.',401);
+    if ($user['must_change_password']) respond(['ok'=>false,'code'=>'PASSWORD_CHANGE_REQUIRED','message'=>'Altere sua senha para continuar.'],403);
+    if (!in_array($user['role'],['admin','superadmin'],true)) fail('Acesso não permitido.',403);
     if ($httpMethod !== 'GET') csrf();
 }
 function input(): array {
@@ -85,3 +94,14 @@ register_shutdown_function(function (): void {
     if(empty($GLOBALS['uploads_committed'])) foreach($GLOBALS['new_uploads']??[] as $path) if(is_file($path)) unlink($path);
 });
 function success(): never { $GLOBALS['uploads_committed']=true; respond(['ok'=>true]); }
+
+function require_superadmin(string $httpMethod='POST'): void {
+    require_admin($httpMethod);
+    if (admin()['role']!=='superadmin') fail('Acesso permitido somente a superadmins.',403);
+}
+function audit(string $action,string $entity,?int $id,array $details=[]): void {
+    $actor=admin();
+    if (!$actor) fail('Sessão expirada. Entre novamente.',401);
+    $q=db()->prepare('INSERT INTO audit_log (actor_id,actor_login,action,entity,record_id,details) VALUES (?,?,?,?,?,?)');
+    $q->execute([$actor['id'],$actor['login'],$action,$entity,$id,json_encode($details,JSON_UNESCAPED_UNICODE|JSON_THROW_ON_ERROR)]);
+}

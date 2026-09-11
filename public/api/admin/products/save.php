@@ -11,4 +11,4 @@ $image=upload('image','products') ?? ($old['image_path']??null); if(!$image) fai
 $values=[$name,$price,$short,$details,$image,$alt];
 if($id) { $values[]=$id; $q=$pdo->prepare('UPDATE products SET name=?,price=?,short_description=?,details=?,image_path=?,image_alt=? WHERE id=?'); }
 else $q=$pdo->prepare('INSERT INTO products (name,price,short_description,details,image_path,image_alt) VALUES (?,?,?,?,?,?)');
-$q->execute($values); $pdo->commit(); success();
+$q->execute($values); audit($id?'update':'create','products',$id??(int)$pdo->lastInsertId(),['name'=>$name,'price'=>$price,'short_description'=>$short,'details'=>$details,'image_path'=>$image,'image_alt'=>$alt]); $pdo->commit(); success();

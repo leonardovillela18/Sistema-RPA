@@ -1,11 +1,12 @@
 window.RPAAuth = (() => {
 let user = null;
 const currentUser = () => user;
-const isAdmin = () => Boolean(user);
-async function loadSession() { const result = await RPAApi.request('/api/auth/me.php'); user=result.user; RPAApi.setCsrf(result.csrf); refresh(); }
+const isAdmin = () => Boolean(user && !user.must_change_password && ['admin','superadmin'].includes(user.role));
+const isSuperAdmin = () => isAdmin() && user.role==='superadmin';
+async function loadSession() { const result = await RPAApi.request('/api/auth/me.php'); user=result.user; RPAApi.setCsrf(result.csrf); if(user?.must_change_password && currentPageFile()!=='alterar-senha.html') location.replace('/alterar-senha.html'); refresh(); }
 async function login(login,password) { await RPAApi.request('/api/auth/login.php',{login,password}); await loadSession(); }
 async function logout() { await RPAApi.request('/api/auth/logout.php',{}); user=null; refresh(); }
-function getRedirectTarget() { const next=new URLSearchParams(location.search).get('next'); if(next==='usuarios.html' && !isAdmin()) return '/index.html'; return ['index.html','produtos.html','contato.html','sobre.html','servicos.html','usuarios.html'].includes(next) ? '/'+next : (isAdmin()?'/usuarios.html':'/index.html'); }
+function getRedirectTarget() { if(user?.must_change_password) return '/alterar-senha.html'; const next=new URLSearchParams(location.search).get('next'); if(next==='usuarios.html' && !isSuperAdmin()) return '/index.html'; return ['index.html','produtos.html','contato.html','sobre.html','servicos.html','usuarios.html'].includes(next) ? '/'+next : (isSuperAdmin()?'/usuarios.html':'/index.html'); }
 function currentPageFile() {
 	const fileName = window.location.pathname.split('/').pop();
 	return fileName || 'index.html';
@@ -41,7 +42,7 @@ function renderHeaderActions() {
  const header = document.querySelector('header'); if (!header) return;
  header.querySelector('.auth-actions')?.remove();
  const actions = document.createElement('div'); actions.className = 'auth-actions';
- if(isAdmin()) {
+ if(isSuperAdmin()) {
   const usersLink=document.createElement('a'); usersLink.className='auth-link';
   usersLink.href='/usuarios.html'; usersLink.textContent='Administradores';
   if(currentPageFile()==='usuarios.html') usersLink.setAttribute('aria-current','page');
@@ -110,5 +111,5 @@ function refresh(root = document) {
 refresh();
 const ready = Promise.all([RPAApi.ready, loadSession()]).then(() => refresh());
 ready.catch(RPAApi.showError);
-return {currentUser,isAdmin,login,logout,getRedirectTarget,refresh,syncContactFields,ready};
+return {currentUser,isAdmin,isSuperAdmin,loadSession,login,logout,getRedirectTarget,refresh,syncContactFields,ready};
 })();

@@ -1,3 +1,5 @@
+> Documento histórico de uma versão anterior. Para os perfis e a troca de senha atuais, siga [SUPERADMIN_SENHAS_AUDITORIA.md](SUPERADMIN_SENHAS_AUDITORIA.md).
+
 # Correção de compatibilidade da administração
 
 A consulta de sessão e o gerenciamento dependiam de uma coluna de permissão ausente no banco de produção. Agora qualquer conta autenticada e existente em admins é administradora. O contrato de me.php retorna id, name, login e email, sem senha ou hash; sem autenticação, retorna HTTP 200 com user null e token CSRF.

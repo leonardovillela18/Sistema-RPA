@@ -1,3 +1,5 @@
+> Documento histórico de uma versão anterior. Para os perfis e a troca de senha atuais, siga [SUPERADMIN_SENHAS_AUDITORIA.md](SUPERADMIN_SENHAS_AUDITORIA.md).
+
 # Gerenciamento de administradores
 
 ## Instalação e configuração

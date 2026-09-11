@@ -11,6 +11,7 @@ window.RPAApi = (() => {
   if(!response.ok || !result.ok) {
    const error=new Error(result.message || 'Não foi possível concluir a operação.');
    error.status=response.status;
+   if(result.code==='PASSWORD_CHANGE_REQUIRED') location.replace('/alterar-senha.html');
    throw error;
   }
   return result;
