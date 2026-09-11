@@ -46,13 +46,22 @@ function csrf(): void {
 function admin(): ?array {
     session_open();
     if (empty($_SESSION['admin_id'])) return null;
-    $q=db()->prepare('SELECT id,name,login,email FROM admins WHERE id=?'); $q->execute([$_SESSION['admin_id']]);
-    $user=$q->fetch(); return $user ?: null;
+    // SELECT * permite reconhecer os campos opcionais sem consultar colunas ausentes.
+    // O retorno abaixo é uma lista explícita: nunca expõe hash ou colunas futuras.
+    $q=db()->prepare('SELECT * FROM admins WHERE id=?'); $q->execute([$_SESSION['admin_id']]);
+    $row=$q->fetch();
+    if (!$row || !hash_equals(hash('sha256',$row['password_hash']),$_SESSION['auth_proof']??'')) return null;
+    $ready=array_key_exists('can_manage_users',$row) && array_key_exists('password_change_required',$row);
+    return ['id'=>$row['id'],'name'=>$row['name'],'login'=>$row['login'],'email'=>$row['email'],
+        'features_ready'=>$ready,
+        'can_manage_users'=>(bool)($row['can_manage_users']??true),
+        'password_change_required'=>(bool)($row['password_change_required']??false)];
 }
 function require_admin(string $httpMethod='POST'): void {
     method($httpMethod);
     $user=admin();
     if (!$user) fail('Sessão expirada. Entre novamente.',401);
+    if ($user['password_change_required']) respond(['ok'=>false,'code'=>'PASSWORD_CHANGE_REQUIRED','message'=>'Defina sua nova senha para continuar.'],403);
     if ($httpMethod !== 'GET') csrf();
 }
 function input(): array {
@@ -85,3 +94,12 @@ register_shutdown_function(function (): void {
     if(empty($GLOBALS['uploads_committed'])) foreach($GLOBALS['new_uploads']??[] as $path) if(is_file($path)) unlink($path);
 });
 function success(): never { $GLOBALS['uploads_committed']=true; respond(['ok'=>true]); }
+
+function require_user_manager(string $httpMethod='POST'): void {
+    require_admin($httpMethod); $user=admin();
+    require_account_features($user);
+    if (!$user['can_manage_users']) fail('Somente administradores podem gerenciar usuários.',403);
+}
+function require_account_features(array $user): void {
+    if (!$user['features_ready']) respond(['ok'=>false,'code'=>'ACCOUNT_SETUP_REQUIRED','message'=>'O gerenciamento de usuários aguarda a atualização manual aprovada do banco. O login continua disponível.'],409);
+}

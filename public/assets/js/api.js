@@ -10,7 +10,8 @@ window.RPAApi = (() => {
   try {result=await response.json();} catch {throw new Error('Resposta inválida do servidor. Verifique a configuração PHP.');}
   if(!response.ok || !result.ok) {
    const error=new Error(result.message || 'Não foi possível concluir a operação.');
-   error.status=response.status;
+   error.status=response.status; error.code=result.code;
+   if(result.code==='PASSWORD_CHANGE_REQUIRED') location.replace('/alterar-senha.html');
    throw error;
   }
   return result;

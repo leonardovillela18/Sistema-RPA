@@ -1,6 +1,6 @@
-## Correção de compatibilidade da autenticação
+## Versão em revisão: operador/admin e senha pessoal
 
-Esta versão utiliza somente as colunas existentes da tabela `admins`. Não execute migrações nem reimporte o schema em produção. Publique os arquivos de código corrigidos mantendo a configuração privada existente.
+Para habilitar estas funções, é necessária a atualização manual proposta em `database/migrations/003_user_access_password.sql`, antes da publicação desta versão. O SQL foi preparado com autorização, mas **não foi executado**. Siga [OPERADORES_E_SENHAS.md](docs/OPERADORES_E_SENHAS.md). Não execute migrações retiradas de versões anteriores e não reimporte o schema em produção.
 
 # Publicação na HostGator
 

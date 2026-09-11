@@ -14,6 +14,6 @@ if($count>=10) { $pdo->rollBack(); fail('Muitas tentativas. Aguarde 15 minutos.'
 $q=$pdo->prepare('UPDATE login_attempts SET attempts=?,window_start=? WHERE identity_hash=?'); $q->execute([$count+1,$count===0?time():$attempt['window_start'],$key]); $pdo->commit();
 $q=$pdo->prepare('SELECT id,password_hash FROM admins WHERE login=?'); $q->execute([$login]); $user=$q->fetch();
 if(!$user || !password_verify($password,$user['password_hash'])) fail('Login ou senha inválidos.',401);
-if(password_needs_rehash($user['password_hash'],PASSWORD_DEFAULT)) { $q=$pdo->prepare('UPDATE admins SET password_hash=? WHERE id=?'); $q->execute([password_hash($password,PASSWORD_DEFAULT),$user['id']]); }
+if(password_needs_rehash($user['password_hash'],PASSWORD_DEFAULT)) { $q=$pdo->prepare('UPDATE admins SET password_hash=? WHERE id=?'); $user['password_hash']=password_hash($password,PASSWORD_DEFAULT); $q->execute([$user['password_hash'],$user['id']]); }
 $q=$pdo->prepare('DELETE FROM login_attempts WHERE identity_hash=? OR window_start<?'); $q->execute([$key,time()-86400]);
-session_regenerate_id(true); $_SESSION['admin_id']=$user['id']; $_SESSION['csrf']=bin2hex(random_bytes(32)); success();
+session_regenerate_id(true); $_SESSION['admin_id']=$user['id']; $_SESSION['auth_proof']=hash('sha256',$user['password_hash']); $_SESSION['csrf']=bin2hex(random_bytes(32)); success();

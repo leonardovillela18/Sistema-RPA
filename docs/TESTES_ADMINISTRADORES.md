@@ -1,3 +1,5 @@
+> Documento da versão anterior. Para a nova proposta autorizada de operador/admin e troca de senha, consulte [OPERADORES_E_SENHAS.md](OPERADORES_E_SENHAS.md). Nenhum SQL ou deploy foi executado.
+
 > Para os resultados e limites da correção atual, veja [RESTAURACAO_ADMINISTRADORES.md](RESTAURACAO_ADMINISTRADORES.md).
 
 # Gerenciamento de administradores

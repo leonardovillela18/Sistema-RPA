@@ -25,8 +25,8 @@ tbody tr:last-child td{border-bottom:0}.row-actions{display:flex;gap:8px;min-wid
 dialog{margin:auto;width:min(560px,94%);max-height:90vh;overflow-y:auto;background:var(--surface);color:var(--text);border:1px solid #444;border-radius:18px;padding:26px;box-shadow:0 22px 60px #0008}
 dialog::backdrop{background:#000b}.dialog-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}
 fieldset{border:0;min-width:0}label{display:block;margin:14px 0 7px;font-weight:700}
-input{width:100%;padding:12px;border:1px solid #555;border-radius:10px;background:#242424;color:#fff;font-size:1rem}
-input:focus{outline:2px solid var(--accent);outline-offset:1px}
+input,select{width:100%;padding:12px;border:1px solid #555;border-radius:10px;background:#242424;color:#fff;font-size:1rem}
+input:focus,select:focus{outline:2px solid var(--accent);outline-offset:1px}
 #passwordHint{font-size:.85rem;margin-top:8px}#formMessage{min-height:26px;margin-top:16px}
 .form-actions{display:flex;justify-content:flex-end;gap:12px;margin-top:12px}
 footer{background:#000;color:#aaa;text-align:center;padding:22px}
@@ -37,3 +37,5 @@ footer{background:#000;color:#aaa;text-align:center;padding:22px}
 .password-tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .password-tools button{font-size:.85rem;padding:9px 12px}
 #passwordToolsMessage{font-size:.85rem;margin-top:8px}
+
+select{max-width:100%}td:nth-child(7),td:nth-child(8){min-width:145px}
