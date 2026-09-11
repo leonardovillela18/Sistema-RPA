@@ -23,7 +23,7 @@
 <noscript>Ative o JavaScript e faça login para gerenciar administradores.</noscript>
 <section id="usersPanel" hidden aria-labelledby="usersTitle">
 <div class="topbar">
-<div><h1 id="usersTitle">Administradores</h1><p>Gerencie usuários, permissões e solicitações de troca de senha.</p></div>
+<div><h1 id="usersTitle">Administradores</h1><p>Gerencie as contas com acesso à administração do site.</p></div>
 <button id="newUser" type="button">Novo administrador</button>
 </div>
 <p id="usersMessage" role="status" aria-live="polite"></p>
@@ -31,11 +31,10 @@
 <div class="table-wrap" tabindex="0" role="region" aria-label="Lista de administradores">
 <table>
 <caption class="sr-only">Administradores cadastrados</caption>
-<thead><tr><th scope="col">ID</th><th scope="col">Nome</th><th scope="col">Login</th><th scope="col">E-mail</th><th scope="col">Perfil</th><th scope="col">Troca de senha</th><th scope="col">Criação</th><th scope="col">Última atualização</th><th scope="col">Ações</th></tr></thead>
+<thead><tr><th scope="col">ID</th><th scope="col">Nome</th><th scope="col">Login</th><th scope="col">E-mail</th><th scope="col">Criação</th><th scope="col">Última atualização</th><th scope="col">Ações</th></tr></thead>
 <tbody id="usersRows"></tbody>
 </table>
 </div>
-<section aria-labelledby="auditTitle" class="audit-panel"><h2 id="auditTitle">Histórico de alterações</h2><p>Autor, data e informações salvas em cada alteração.</p><button id="refreshAudit" class="secondary" type="button">Atualizar histórico</button><p id="auditMessage" role="status"></p><div id="auditRows"></div><button id="moreAudit" class="secondary" type="button" hidden>Carregar anteriores</button></section>
 </section>
 </main>
 <dialog id="userDialog" aria-labelledby="dialogTitle">
@@ -44,7 +43,6 @@
 <fieldset id="profileFields">
 <label for="userName">Nome</label><input id="userName" name="name" autocomplete="name" maxlength="150" required>
 <label for="userLogin">Login</label><input id="userLogin" name="login" autocomplete="off" maxlength="100" required>
-<label for="userRole">Perfil</label><select id="userRole" name="role" required><option value="admin">Admin — editar o site</option><option value="superadmin">Superadmin — editar o site e gerenciar usuários</option></select>
 <label for="userEmail">E-mail</label><input id="userEmail" name="email" type="email" autocomplete="email" maxlength="254" required>
 </fieldset>
 <fieldset id="passwordFields">
@@ -52,8 +50,6 @@
 <p id="passwordHint">Pelo menos 12 caracteres e no máximo 72 bytes. Letras acentuadas podem ocupar mais de um byte.</p>
 <label for="confirmPassword">Confirmar nova senha</label><input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" required>
 </fieldset>
-<label class="checkbox-label"><input id="mustChangePassword" name="must_change_password" type="checkbox"> Exigir alteração de senha no próximo login</label>
-<p>Ao marcar, a pessoa entra com a senha que você definiu e precisa escolher uma nova senha para continuar.</p>
 <p id="formMessage" role="alert"></p>
 <div class="form-actions"><button id="cancelDialog" class="secondary" type="button">Cancelar</button><button id="saveUser" type="submit">Salvar</button></div>
 </form>

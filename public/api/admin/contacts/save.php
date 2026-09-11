@@ -13,5 +13,4 @@ foreach(['phoneLabel','phoneLink','emailLabel','emailLink','instagramLabel','ins
     if($key==='emailLabel' && !filter_var($value,FILTER_VALIDATE_EMAIL)) fail('Email inválido.');
     $values[]=$value;
 }
-db()->beginTransaction();
-$q=db()->prepare('UPDATE site_contacts SET phone_label=?,phone_link=?,email_label=?,email_link=?,instagram_label=?,instagram_link=?,address=?,maps_link=?,maps_embed=? WHERE id=1'); $q->execute($values); audit('update','site_contacts',1,array_combine(['phoneLabel','phoneLink','emailLabel','emailLink','instagramLabel','instagramLink','address','mapsLink','mapsEmbed'],$values)); db()->commit(); success();
+$q=db()->prepare('UPDATE site_contacts SET phone_label=?,phone_link=?,email_label=?,email_link=?,instagram_label=?,instagram_link=?,address=?,maps_link=?,maps_embed=? WHERE id=1'); $q->execute($values); success();

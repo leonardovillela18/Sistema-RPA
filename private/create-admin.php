@@ -14,6 +14,6 @@ if(PHP_OS_FAMILY!=='Windows') {
 } else { exit("Execute no terminal Linux do cPanel.\n"); }
 if(strlen($password)<12 || strlen($password)>72 || $password!==$confirm) exit("Senhas diferentes ou tamanho inválido (12–72 bytes).\n");
 $pdo=new PDO($config['dsn'],$config['user'],$config['password'],[PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,PDO::ATTR_EMULATE_PREPARES=>false]);
-$q=$pdo->prepare('INSERT INTO admins (name,login,email,password_hash,role) VALUES (?,?,?,?,?)');
-$q->execute([$name,$login,$email,password_hash($password,PASSWORD_DEFAULT),$login==='leonardo.villela'?'superadmin':'admin']);
+$q=$pdo->prepare('INSERT INTO admins (name,login,email,password_hash) VALUES (?,?,?,?)');
+$q->execute([$name,$login,$email,password_hash($password,PASSWORD_DEFAULT)]);
 echo "Administrador criado.\n";

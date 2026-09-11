@@ -9,7 +9,4 @@ for($i=1;$i<=3;$i++) {
     $image=upload('image'.$i,'about')??$old['image_path'];
     $q=$pdo->prepare('UPDATE about_blocks SET badge=?,title=?,text=?,image_path=?,image_alt=? WHERE position=?'); $q->execute([$badge,$title,$text,$image,$title,$i]);
 }
-$q=$pdo->query('SELECT * FROM about_content WHERE id=1'); $intro=$q->fetch();
-$q=$pdo->query('SELECT * FROM about_blocks ORDER BY position');
-audit('update','about',1,['intro'=>$intro,'blocks'=>$q->fetchAll()]);
 $pdo->commit(); success();

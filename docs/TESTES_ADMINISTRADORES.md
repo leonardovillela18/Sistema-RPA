@@ -1,4 +1,4 @@
-> Documento histórico de uma versão anterior. Para os perfis e a troca de senha atuais, siga [SUPERADMIN_SENHAS_AUDITORIA.md](SUPERADMIN_SENHAS_AUDITORIA.md).
+> Para os resultados e limites da correção atual, veja [RESTAURACAO_ADMINISTRADORES.md](RESTAURACAO_ADMINISTRADORES.md).
 
 # Gerenciamento de administradores
 
@@ -37,7 +37,7 @@ Não é necessário ativar módulos adicionais no cPanel além dos já exigidos 
 
 Use contas e banco de teste para testar exclusões e trocas de senha. Nunca execute esses casos automaticamente contra o banco de produção.
 
-## Validação executada
+## Validação histórica — não executada nesta correção
 
 Testado localmente em PHP 8.2.12 e MariaDB 10.4.32, com banco isolado: listagem, criação, edição, troca de senha com novo login, duplicidades, limites de senha, Unicode, espaços, confirmação, exclusão, proteção da própria/última conta, rejeição de visitantes em todos os endpoints administrativos, CSRF em todas as novas mutações, perda de acesso da conta excluída, logout e regressão do snapshot/edição de contatos/Sobre Nós. Sintaxe PHP/JavaScript e caminhos locais HTML/CSS também verificados.
 

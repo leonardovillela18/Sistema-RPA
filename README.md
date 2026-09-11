@@ -27,6 +27,4 @@ README_DEPLOY.md        Instalação, publicação e verificações
 
 Consulte [README_DEPLOY.md](README_DEPLOY.md) para configurar o banco, criar o administrador e publicar na HostGator. Abrir os arquivos HTML diretamente não substitui a execução do PHP e do banco.
 
-Após entrar como **superadmin**, use **Administradores** no cabeçalho para acessar `/usuarios.html`. Superadmins gerenciam contas, perfis, redefinição de senha e histórico; admins editam o conteúdo do site. A opção **Exigir alteração de senha no próximo login** obriga o usuário a escolher uma nova senha antes de administrar o site.
-
-**Atualização de instalação existente:** antes de publicar este código, aplique uma vez `database/migrations/002_superadmin_password_audit.sql`. Essa migração é necessária para a nova funcionalidade e preserva as senhas existentes. Leia [o guia de implantação e testes](docs/SUPERADMIN_SENHAS_AUDITORIA.md).
+Após entrar, use **Administradores** no cabeçalho para acessar `/usuarios.html`. Essa área permite buscar, criar e editar administradores, alterar senhas e excluir outras contas. Todas as contas da tabela `admins` têm os mesmos privilégios. Não é necessária migração de banco. Consulte [o roteiro de testes](docs/TESTES_ADMINISTRADORES.md) e [a validação da correção](docs/TESTES_USUARIOS.md).

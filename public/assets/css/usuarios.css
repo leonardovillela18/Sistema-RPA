@@ -25,7 +25,7 @@ tbody tr:last-child td{border-bottom:0}.row-actions{display:flex;gap:8px;min-wid
 dialog{margin:auto;width:min(560px,94%);max-height:90vh;overflow-y:auto;background:var(--surface);color:var(--text);border:1px solid #444;border-radius:18px;padding:26px;box-shadow:0 22px 60px #0008}
 dialog::backdrop{background:#000b}.dialog-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}
 fieldset{border:0;min-width:0}label{display:block;margin:14px 0 7px;font-weight:700}
-input,select{width:100%;padding:12px;border:1px solid #555;border-radius:10px;background:#242424;color:#fff;font-size:1rem}
+input{width:100%;padding:12px;border:1px solid #555;border-radius:10px;background:#242424;color:#fff;font-size:1rem}
 input:focus{outline:2px solid var(--accent);outline-offset:1px}
 #passwordHint{font-size:.85rem;margin-top:8px}#formMessage{min-height:26px;margin-top:16px}
 .form-actions{display:flex;justify-content:flex-end;gap:12px;margin-top:12px}
@@ -34,5 +34,3 @@ footer{background:#000;color:#aaa;text-align:center;padding:22px}
 @media(max-width:900px){header{padding:16px 20px}header nav{order:3;width:100%}nav ul{gap:4px}main{margin:26px auto}th,td{padding:12px}}
 
 #userSearch{max-width:480px}#usersCount{margin:12px 0}
-
-.checkbox-label{display:flex;align-items:center;gap:10px}.checkbox-label input{width:auto}.audit-panel{margin-top:40px}.audit-panel button{margin:16px 0}.audit-panel details{padding:14px;border-bottom:1px solid #444}.audit-panel pre{white-space:pre-wrap;overflow-wrap:anywhere;padding:16px;font-size:.85rem}.audit-panel summary{cursor:pointer}td:nth-child(8){min-width:145px}
