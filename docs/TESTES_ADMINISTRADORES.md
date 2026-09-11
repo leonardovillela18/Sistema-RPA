@@ -1,3 +1,5 @@
+> Roteiro histórico da versão que gerenciava somente administradores. Para a versão atual, siga [TESTES_USUARIOS.md](TESTES_USUARIOS.md), incluindo a migração obrigatória de perfis.
+
 # Gerenciamento de administradores
 
 ## Instalação e configuração

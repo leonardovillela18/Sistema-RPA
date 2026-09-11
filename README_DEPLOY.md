@@ -1,3 +1,7 @@
+## Atualização: perfis de usuários
+
+Antes de publicar esta versão em uma instalação existente, execute uma vez `database/migrations/001_user_roles.sql` pelo phpMyAdmin. Faça backup do banco antes da migração. Ela preserva as contas existentes como administradores. Em instalações novas, use apenas `database/schema.sql`, que já inclui o campo `role`. Não reimporte o schema em bancos existentes.
+
 # Publicação na HostGator
 
 O site usa Apache, PHP 8.2 ou superior e MySQL/MariaDB com PDO. Publique apenas o conteúdo de `public/` na raiz do domínio. Não há instalação de pacotes nem processo de aplicação persistente.

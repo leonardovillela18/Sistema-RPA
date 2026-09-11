@@ -8,7 +8,20 @@ function user_profile(array $data): array {
     $login=field($data,'login',100);
     $email=field($data,'email',254);
     if (!filter_var($email,FILTER_VALIDATE_EMAIL)) fail('Informe um e-mail válido.');
-    return [$name,$login,$email];
+    $role=field($data,'role',20);
+    if (!in_array($role,['admin','user'],true)) fail('Selecione um perfil válido.');
+    return [$name,$login,$email,$role];
+}
+
+// Compartilhado por edição e exclusão para serializar mudanças de permissão.
+function lock_users(): array {
+    db()->beginTransaction();
+    $q=db()->query('SELECT id,role FROM admins ORDER BY id FOR UPDATE');
+    $users=$q->fetchAll(PDO::FETCH_KEY_PAIR);
+    if (($users[(int)$_SESSION['admin_id']]??null)!=='admin') {
+        db()->rollBack(); fail('Acesso administrativo revogado.',403);
+    }
+    return $users;
 }
 
 function new_password(array $data): string {
@@ -30,7 +43,7 @@ function unique_profile(string $login,string $email,int $id=0): void {
 
 function user_exists(int $id): void {
     $q=db()->prepare('SELECT id FROM admins WHERE id=?'); $q->execute([$id]);
-    if (!$q->fetch()) fail('Administrador não encontrado.',404);
+    if (!$q->fetch()) fail('Usuário não encontrado.',404);
 }
 
 function save_user(string $sql,array $values): void {

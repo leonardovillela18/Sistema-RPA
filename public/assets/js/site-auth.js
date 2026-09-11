@@ -5,7 +5,7 @@ const isAdmin = () => user?.role === 'admin';
 async function loadSession() { const result = await RPAApi.request('/api/auth/me.php'); user=result.user; RPAApi.setCsrf(result.csrf); refresh(); }
 async function login(login,password) { await RPAApi.request('/api/auth/login.php',{login,password}); await loadSession(); }
 async function logout() { await RPAApi.request('/api/auth/logout.php',{}); user=null; refresh(); }
-function getRedirectTarget() { const next=new URLSearchParams(location.search).get('next'); return ['index.html','produtos.html','contato.html','sobre.html','servicos.html','usuarios.html'].includes(next) ? '/'+next : '/index.html'; }
+function getRedirectTarget() { const next=new URLSearchParams(location.search).get('next'); if(next==='usuarios.html' && !isAdmin()) return '/index.html'; return ['index.html','produtos.html','contato.html','sobre.html','servicos.html','usuarios.html'].includes(next) ? '/'+next : (isAdmin()?'/usuarios.html':'/index.html'); }
 function currentPageFile() {
 	const fileName = window.location.pathname.split('/').pop();
 	return fileName || 'index.html';
@@ -41,14 +41,14 @@ function renderHeaderActions() {
  const header = document.querySelector('header'); if (!header) return;
  header.querySelector('.auth-actions')?.remove();
  const actions = document.createElement('div'); actions.className = 'auth-actions';
- if(user) {
+ if(isAdmin()) {
   const usersLink=document.createElement('a'); usersLink.className='auth-link';
-  usersLink.href='/usuarios.html'; usersLink.textContent='Administradores';
+  usersLink.href='/usuarios.html'; usersLink.textContent='Usuários';
   if(currentPageFile()==='usuarios.html') usersLink.setAttribute('aria-current','page');
   actions.append(usersLink);
  }
  const link = document.createElement('a'); link.className = 'auth-link';
- link.href = '/acesso.html'; link.textContent = user ? 'Sair' : 'Acesso administrativo';
+ link.href = '/acesso.html'; link.textContent = user ? 'Sair' : 'Entrar';
  if(user) link.addEventListener('click', async e => { e.preventDefault(); try { await logout(); location.href='/index.html'; } catch(e) { alert(e.message); } });
  actions.append(link); header.append(actions);
 }

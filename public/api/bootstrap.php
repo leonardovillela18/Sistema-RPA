@@ -46,12 +46,14 @@ function csrf(): void {
 function admin(): ?array {
     session_open();
     if (empty($_SESSION['admin_id'])) return null;
-    $q=db()->prepare('SELECT id,name,login FROM admins WHERE id=?'); $q->execute([$_SESSION['admin_id']]);
-    $user=$q->fetch(); return $user ? $user+['role'=>'admin'] : null;
+    $q=db()->prepare('SELECT id,name,login,role FROM admins WHERE id=?'); $q->execute([$_SESSION['admin_id']]);
+    $user=$q->fetch(); return $user ?: null;
 }
 function require_admin(string $httpMethod='POST'): void {
     method($httpMethod);
-    if (!admin()) fail('Sessão expirada. Entre novamente.',401);
+    $user=admin();
+    if (!$user) fail('Sessão expirada. Entre novamente.',401);
+    if ($user['role']!=='admin') fail('Acesso permitido somente a administradores.',403);
     if ($httpMethod !== 'GET') csrf();
 }
 function input(): array {
