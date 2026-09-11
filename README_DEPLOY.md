@@ -1,6 +1,6 @@
-## Atualização: perfis de usuários
+## Correção de compatibilidade da autenticação
 
-Antes de publicar esta versão em uma instalação existente, execute uma vez `database/migrations/001_user_roles.sql` pelo phpMyAdmin. Faça backup do banco antes da migração. Ela preserva as contas existentes como administradores. Em instalações novas, use apenas `database/schema.sql`, que já inclui o campo `role`. Não reimporte o schema em bancos existentes.
+Esta versão utiliza somente as colunas existentes da tabela `admins`. Não execute migrações nem reimporte o schema em produção. Publique os arquivos de código corrigidos mantendo a configuração privada existente.
 
 # Publicação na HostGator
 

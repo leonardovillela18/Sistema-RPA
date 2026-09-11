@@ -8,18 +8,16 @@ function user_profile(array $data): array {
     $login=field($data,'login',100);
     $email=field($data,'email',254);
     if (!filter_var($email,FILTER_VALIDATE_EMAIL)) fail('Informe um e-mail válido.');
-    $role=field($data,'role',20);
-    if (!in_array($role,['admin','user'],true)) fail('Selecione um perfil válido.');
-    return [$name,$login,$email,$role];
+    return [$name,$login,$email];
 }
 
-// Compartilhado por edição e exclusão para serializar mudanças de permissão.
+// Compartilhado por edição e exclusão para serializar alterações de contas.
 function lock_users(): array {
     db()->beginTransaction();
-    $q=db()->query('SELECT id,role FROM admins ORDER BY id FOR UPDATE');
-    $users=$q->fetchAll(PDO::FETCH_KEY_PAIR);
-    if (($users[(int)$_SESSION['admin_id']]??null)!=='admin') {
-        db()->rollBack(); fail('Acesso administrativo revogado.',403);
+    $q=db()->query('SELECT id FROM admins ORDER BY id FOR UPDATE');
+    $users=array_map('intval',$q->fetchAll(PDO::FETCH_COLUMN));
+    if (!in_array((int)$_SESSION['admin_id'],$users,true)) {
+        db()->rollBack(); fail('Sessão expirada. Entre novamente.',401);
     }
     return $users;
 }

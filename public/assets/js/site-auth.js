@@ -1,7 +1,7 @@
 window.RPAAuth = (() => {
 let user = null;
 const currentUser = () => user;
-const isAdmin = () => user?.role === 'admin';
+const isAdmin = () => Boolean(user);
 async function loadSession() { const result = await RPAApi.request('/api/auth/me.php'); user=result.user; RPAApi.setCsrf(result.csrf); refresh(); }
 async function login(login,password) { await RPAApi.request('/api/auth/login.php',{login,password}); await loadSession(); }
 async function logout() { await RPAApi.request('/api/auth/logout.php',{}); user=null; refresh(); }
@@ -43,7 +43,7 @@ function renderHeaderActions() {
  const actions = document.createElement('div'); actions.className = 'auth-actions';
  if(isAdmin()) {
   const usersLink=document.createElement('a'); usersLink.className='auth-link';
-  usersLink.href='/usuarios.html'; usersLink.textContent='Usuários';
+  usersLink.href='/usuarios.html'; usersLink.textContent='Administradores';
   if(currentPageFile()==='usuarios.html') usersLink.setAttribute('aria-current','page');
   actions.append(usersLink);
  }
@@ -58,7 +58,7 @@ function syncAdminVisibility(root = document) {
 		node.hidden = !isAdmin();
 	});
 
-	document.body?.setAttribute('data-role', isAdmin() ? 'admin' : currentUser() ? 'user' : 'guest');
+	document.body?.setAttribute('data-role', isAdmin() ? 'admin' : 'guest');
 }
 
 function syncContactFields(root = document) {

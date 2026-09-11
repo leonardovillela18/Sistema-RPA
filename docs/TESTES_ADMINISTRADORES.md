@@ -1,5 +1,3 @@
-> Roteiro histórico da versão que gerenciava somente administradores. Para a versão atual, siga [TESTES_USUARIOS.md](TESTES_USUARIOS.md), incluindo a migração obrigatória de perfis.
-
 # Gerenciamento de administradores
 
 ## Instalação e configuração
@@ -18,7 +16,7 @@ Não é necessário ativar módulos adicionais no cPanel além dos já exigidos 
 - As permissões vêm da sessão PHP. O ID do payload apenas identifica a conta alvo e é validado no servidor.
 - A exclusão bloqueia a própria conta e o último administrador. Uma transação bloqueia os registros durante a verificação para proteger exclusões simultâneas.
 - Senhas exigem 12 caracteres ou mais, até 72 bytes, e confirmação igual. Espaços são preservados. A edição de perfil não altera senha.
-- Qualquer administrador pode gerenciar as demais contas, inclusive alterar suas senhas. Não há novo nível de permissão.
+- Qualquer administrador pode gerenciar as demais contas, inclusive alterar suas senhas. Não há níveis de permissão. Todas as contas autenticadas de admins são administradores.
 
 ## Testes manuais
 

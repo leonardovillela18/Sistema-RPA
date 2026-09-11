@@ -1,20 +1,26 @@
-# Perfis e gerenciamento de usuários
+# Correção de compatibilidade da administração
 
-Esta versão amplia a página existente /usuarios.html. A tabela admins armazena ambos os perfis por compatibilidade. Execute database/migrations/001_user_roles.sql uma vez antes de atualizar instalações existentes; para banco novo, importe somente schema.sql.
+A consulta de sessão e o gerenciamento dependiam de uma coluna de permissão ausente no banco de produção. Agora qualquer conta autenticada e existente em admins é administradora. O contrato de me.php retorna id, name, login e email, sem senha ou hash; sem autenticação, retorna HTTP 200 com user null e token CSRF.
 
-## Verificações funcionais em banco de teste
+Não há migração de banco. A migração de perfis foi removida. Não recrie tabelas, não reimporte schema.sql e não altere contas existentes. O caminho /home1/rpamec18/private/config.php e a alternativa RPA_CONFIG foram preservados.
 
-1. Entrar como administrador: o destino padrão é /usuarios.html, com link Usuários no cabeçalho.
-2. Criar contas nos perfis Usuário e Administrador; confirmar login de ambas.
-3. Como usuário comum, confirmar ausência dos controles de edição e do link Usuários. Acessar /usuarios.html redireciona ao início. Todas as APIs /api/admin devem retornar 403, mesmo com CSRF válido.
-4. Sem sessão, confirmar HTTP 401 nas APIs administrativas.
-5. Editar nome, login, e-mail e perfil de outra conta; promover e rebaixar, verificando a nova permissão na próxima requisição da sessão já aberta.
-6. Tentar rebaixar ou excluir a própria conta e o último administrador: esperar 409. Repetir por chamadas diretas à API.
-7. Excluir um usuário comum quando existe somente um administrador: deve funcionar.
-8. Buscar por nome, login e e-mail; conferir resultado vazio e total. Limpar a busca restaura a lista.
-9. Confirmar alteração de senha, rejeição de duplicidades, senha inválida e CSRF ausente conforme o roteiro anterior.
-10. Conferir layout no celular e abertura, cancelamento e envio dos três formulários.
+## Validação executada nesta correção
 
-## Validação desta alteração
+Testes HTTP locais em PHP 8.2.12 e MariaDB 10.4.32, com instância temporária isolada na interface de loopback e schema do projeto sem coluna de permissão. Nenhuma conta ou banco existente foi alterado; somente contas descartáveis no banco de teste foram usadas. Os servidores temporários foram encerrados depois dos testes. Node foi usado apenas como cliente de teste local, sem dependência nova na aplicação ou produção.
 
-Sintaxe de todos os arquivos PHP e JavaScript verificada localmente. O banco MySQL local recusou a conexão sem credenciais; os testes de integração e a inspeção no navegador não foram executados nesta alteração. A validação da versão anterior em TESTES_ADMINISTRADORES.md não cobre os novos perfis. Nenhum banco de produção foi alterado.
+- Login válido e inválido; consulta de sessão com e sem autenticação; logout e perda de acesso.
+- Ausência de senha/hash e campo de permissão no retorno da sessão e da listagem.
+- Listagem, criação, edição de nome/login/e-mail e login com os dados editados, preservando a senha.
+- Alteração de senha: senha anterior rejeitada e nova senha aceita.
+- Rejeição de login/e-mail duplicados e senha curta.
+- HTTP 401 nas cinco APIs de gerenciamento sem sessão; HTTP 403 nas quatro mutações sem CSRF.
+- HTTP 409 ao excluir o último administrador e ao excluir a própria conta quando existe outra conta.
+- Exclusão de outro administrador, atualização da lista e perda de acesso da sessão da conta excluída.
+- Snapshot público com ok true e HTTP 200 nas páginas index, servicos, produtos, sobre, contato, acesso e usuarios.
+- Sintaxe de todos os PHP e JavaScript; revisão global de consultas da tabela admins.
+
+Não foi feita inspeção visual no navegador nem execução no PHP 8.3 da HostGator. O layout existente foi preservado, removendo apenas o seletor/coluna de perfil e seus estilos. A compatibilidade com PHP 8.3 foi revisada no código; os testes de execução acima utilizaram o PHP local disponível.
+
+## Publicação manual
+
+Publicar os arquivos corrigidos de public/ pelo fluxo habitual, sem executar SQL. Depois conferir /api/auth/me.php sem sessão, entrar com um administrador existente e abrir /usuarios.html. Não houve deploy nesta correção. Consulte também TESTES_ADMINISTRADORES.md para o roteiro manual completo; o relato de testes naquele documento corresponde à versão anterior.

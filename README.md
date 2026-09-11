@@ -27,4 +27,4 @@ README_DEPLOY.md        Instalação, publicação e verificações
 
 Consulte [README_DEPLOY.md](README_DEPLOY.md) para configurar o banco, criar o administrador e publicar na HostGator. Abrir os arquivos HTML diretamente não substitui a execução do PHP e do banco.
 
-Após entrar, use **Usuários** no cabeçalho para acessar `/usuarios.html`. Essa área permite buscar e criar contas, editar nome/login/e-mail e perfil (usuário ou administrador), alterar senhas e excluir outras contas. Usuários comuns podem entrar, mas não têm acesso às APIs administrativas. Antes de atualizar uma instalação existente, execute uma vez `database/migrations/001_user_roles.sql`. As contas existentes mantêm o perfil administrador. Consulte [o roteiro de testes](docs/TESTES_USUARIOS.md).
+Após entrar, use **Administradores** no cabeçalho para acessar `/usuarios.html`. Essa área permite buscar, criar e editar administradores, alterar senhas e excluir outras contas. Todas as contas da tabela `admins` têm os mesmos privilégios. Não é necessária migração de banco. Consulte [o roteiro de testes](docs/TESTES_ADMINISTRADORES.md) e [a validação da correção](docs/TESTES_USUARIOS.md).

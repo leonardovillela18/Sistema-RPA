@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Usuários - RPA</title>
+<title>Administradores - RPA</title>
 <link rel="stylesheet" href="/assets/css/site-auth.css">
 <link rel="stylesheet" href="/assets/css/usuarios.css">
 </head>
@@ -20,18 +20,18 @@
 </header>
 <main>
 <p id="loading" role="status">Verificando acesso…</p>
-<noscript>Ative o JavaScript e faça login para gerenciar usuários.</noscript>
+<noscript>Ative o JavaScript e faça login para gerenciar administradores.</noscript>
 <section id="usersPanel" hidden aria-labelledby="usersTitle">
 <div class="topbar">
-<div><h1 id="usersTitle">Usuários</h1><p>Crie e edite contas e escolha quem pode administrar o site.</p></div>
-<button id="newUser" type="button">Novo usuário</button>
+<div><h1 id="usersTitle">Administradores</h1><p>Gerencie as contas com acesso à administração do site.</p></div>
+<button id="newUser" type="button">Novo administrador</button>
 </div>
 <p id="usersMessage" role="status" aria-live="polite"></p>
-<label for="userSearch">Buscar usuários</label><input id="userSearch" type="search" placeholder="Nome, login ou e-mail"><p id="usersCount" role="status"></p>
-<div class="table-wrap" tabindex="0" role="region" aria-label="Lista de usuários">
+<label for="userSearch">Buscar administradores</label><input id="userSearch" type="search" placeholder="Nome, login ou e-mail"><p id="usersCount" role="status"></p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Lista de administradores">
 <table>
-<caption class="sr-only">Usuários cadastrados</caption>
-<thead><tr><th scope="col">ID</th><th scope="col">Nome</th><th scope="col">Login</th><th scope="col">E-mail</th><th scope="col">Perfil</th><th scope="col">Criação</th><th scope="col">Última atualização</th><th scope="col">Ações</th></tr></thead>
+<caption class="sr-only">Administradores cadastrados</caption>
+<thead><tr><th scope="col">ID</th><th scope="col">Nome</th><th scope="col">Login</th><th scope="col">E-mail</th><th scope="col">Criação</th><th scope="col">Última atualização</th><th scope="col">Ações</th></tr></thead>
 <tbody id="usersRows"></tbody>
 </table>
 </div>
@@ -39,13 +39,11 @@
 </main>
 <dialog id="userDialog" aria-labelledby="dialogTitle">
 <form id="userForm">
-<div class="dialog-head"><h2 id="dialogTitle">Novo usuário</h2><button class="secondary" id="closeDialog" type="button" aria-label="Fechar">×</button></div>
+<div class="dialog-head"><h2 id="dialogTitle">Novo administrador</h2><button class="secondary" id="closeDialog" type="button" aria-label="Fechar">×</button></div>
 <fieldset id="profileFields">
 <label for="userName">Nome</label><input id="userName" name="name" autocomplete="name" maxlength="150" required>
 <label for="userLogin">Login</label><input id="userLogin" name="login" autocomplete="off" maxlength="100" required>
 <label for="userEmail">E-mail</label><input id="userEmail" name="email" type="email" autocomplete="email" maxlength="254" required>
-<label for="userRole">Perfil de acesso</label><select id="userRole" name="role" aria-describedby="roleHint" required><option value="user">Usuário</option><option value="admin">Administrador</option></select>
-<p id="roleHint">Administradores podem editar o site e gerenciar todas as contas. Usuários têm acesso apenas à consulta do site.</p>
 </fieldset>
 <fieldset id="passwordFields">
 <label for="userPassword">Nova senha</label><input id="userPassword" name="password" type="password" autocomplete="new-password" aria-describedby="passwordHint" required>

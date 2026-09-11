@@ -25,12 +25,12 @@
   rows.replaceChildren();
   const query=document.getElementById('userSearch').value.trim().toLocaleLowerCase('pt-BR');
   const filtered=users.filter(user=>[user.name,user.login,user.email].some(value=>value.toLocaleLowerCase('pt-BR').includes(query)));
-  document.getElementById('usersCount').textContent=`${filtered.length} de ${users.length} usuários`;
-  if(!filtered.length) { const row=rows.insertRow(); const cell=row.insertCell(); cell.colSpan=8; cell.textContent='Nenhum usuário encontrado.'; }
+  document.getElementById('usersCount').textContent=`${filtered.length} de ${users.length} administradores`;
+  if(!filtered.length) { const row=rows.insertRow(); const cell=row.insertCell(); cell.colSpan=7; cell.textContent='Nenhum administrador encontrado.'; }
   for(const user of filtered) {
    const row=document.createElement('tr');
    const self=Number(user.id)===Number(RPAAuth.currentUser().id);
-   for(const value of [user.id,user.name,user.login,user.email,user.role==='admin'?'Administrador':'Usuário',formatDate(user.created_at),formatDate(user.updated_at)]) {
+   for(const value of [user.id,user.name,user.login,user.email,formatDate(user.created_at),formatDate(user.updated_at)]) {
     const cell=document.createElement('td'); cell.textContent=value; row.append(cell);
    }
    if(self) { const badge=document.createElement('span'); badge.className='self-badge'; badge.textContent='Você'; row.children[1].append(badge); }
@@ -38,7 +38,7 @@
    for(const [action,label] of [['update','Editar'],['change-password','Alterar senha'],['delete','Excluir']]) {
     const button=document.createElement('button'); button.type='button'; button.textContent=label;
     button.dataset.action=action; button.dataset.id=user.id; button.className=action==='delete'?'danger':'secondary';
-    if(action==='delete' && (self || (user.role==='admin' && users.filter(item=>item.role==='admin').length===1))) { button.disabled=true; button.title=self?'Você não pode excluir a própria conta.':'Não é permitido excluir o último administrador.'; }
+    if(action==='delete' && (self || users.length===1)) { button.disabled=true; button.title=self?'Você não pode excluir a própria conta.':'Não é permitido excluir o último administrador.'; }
     actions.append(button);
    }
    cell.append(actions); row.append(cell); rows.append(row);
@@ -50,10 +50,8 @@
   mode=action; selectedId=user?.id??null; form.reset(); formMessage.textContent='';
   profileFields.hidden=profileFields.disabled=action==='change-password';
   passwordFields.hidden=passwordFields.disabled=action==='update';
-  document.getElementById('dialogTitle').textContent=action==='create'?'Novo usuário':action==='update'?'Editar usuário':`Alterar senha — ${user.name}`;
-  if(user) for(const key of ['name','login','email','role']) form.elements[key].value=user[key];
-  const ownAccount=user && Number(user.id)===Number(RPAAuth.currentUser().id);
-  form.elements.role.querySelector('[value="user"]').disabled=Boolean(ownAccount);
+  document.getElementById('dialogTitle').textContent=action==='create'?'Novo administrador':action==='update'?'Editar administrador':`Alterar senha — ${user.name}`;
+  if(user) for(const key of ['name','login','email']) form.elements[key].value=user[key];
   dialog.showModal();
   (action==='change-password'?form.elements.password:form.elements.name).focus();
  }
@@ -66,9 +64,9 @@
   const button=event.target.closest('button[data-action]'); if(!button || busy) return;
   const user=users.find(item=>String(item.id)===button.dataset.id); if(!user) return;
   if(button.dataset.action!=='delete') { openForm(button.dataset.action,user); return; }
-  if(!confirm(`Excluir o usuário "${user.name}" (${user.login})? Esta ação não pode ser desfeita.`)) return;
+  if(!confirm(`Excluir o administrador "${user.name}" (${user.login})? Esta ação não pode ser desfeita.`)) return;
   busy=true; button.disabled=true; message.textContent='';
-  try { await RPAApi.request(endpoint('delete'),{id:user.id}); await reload(); message.classList.remove('error'); message.textContent='Usuário excluído.'; }
+  try { await RPAApi.request(endpoint('delete'),{id:user.id}); await reload(); message.classList.remove('error'); message.textContent='Administrador excluído.'; }
   catch(error) { showError(error); button.disabled=false; }
   finally { busy=false; }
  });
@@ -83,12 +81,12 @@
   busy=true; saveButton.disabled=true; formMessage.textContent='';
   try {
    await RPAApi.request(endpoint(mode),data);
-   dialog.close(); await reload(); message.classList.remove('error'); message.textContent=mode==='change-password'?'Senha alterada.':'Usuário salvo.';
+   dialog.close(); await reload(); message.classList.remove('error'); message.textContent=mode==='change-password'?'Senha alterada.':'Administrador salvo.';
   } catch(error) { showError(error,dialog.open?formMessage:message); }
   finally { busy=false; saveButton.disabled=false; }
  });
  RPAAuth.ready.then(async()=>{
   if(!RPAAuth.isAdmin()) { redirect(); return; }
   await reload(); document.getElementById('loading').hidden=true; panel.hidden=false;
- }).catch(error=>{ document.getElementById('loading').textContent='Não foi possível carregar os usuários. Recarregue a página para tentar novamente.'; showError(error); });
+ }).catch(error=>{ document.getElementById('loading').textContent='Não foi possível carregar os administradores. Recarregue a página para tentar novamente.'; showError(error); });
 })();
