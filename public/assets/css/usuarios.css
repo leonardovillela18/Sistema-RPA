@@ -34,3 +34,6 @@ footer{background:#000;color:#aaa;text-align:center;padding:22px}
 @media(max-width:900px){header{padding:16px 20px}header nav{order:3;width:100%}nav ul{gap:4px}main{margin:26px auto}th,td{padding:12px}}
 
 #userSearch{max-width:480px}#usersCount{margin:12px 0}
+.password-tools{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.password-tools button{font-size:.85rem;padding:9px 12px}
+#passwordToolsMessage{font-size:.85rem;margin-top:8px}
