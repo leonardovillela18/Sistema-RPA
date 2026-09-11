@@ -1,0 +1,164 @@
+name: Deploy HostGator
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: hostgator-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout do commit de main
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Publicar por SSH
+        shell: bash
+        env:
+          HOSTGATOR_HOST: ${{ secrets.HOSTGATOR_HOST }}
+          HOSTGATOR_PORT: ${{ secrets.HOSTGATOR_PORT }}
+          HOSTGATOR_USER: ${{ secrets.HOSTGATOR_USER }}
+          HOSTGATOR_SSH_KEY: ${{ secrets.HOSTGATOR_SSH_KEY }}
+          HOSTGATOR_SSH_PASSPHRASE: ${{ secrets.HOSTGATOR_SSH_PASSPHRASE }}
+          # Opcional: linhas known_hosts verificadas por um canal confiável.
+          HOSTGATOR_KNOWN_HOSTS: ${{ vars.HOSTGATOR_KNOWN_HOSTS }}
+        run: |
+          set -Eeuo pipefail
+          set +x
+          umask 077
+          [[ "$HOSTGATOR_HOST" =~ ^[a-zA-Z0-9][a-zA-Z0-9.:-]*$ ]]
+          [[ "$HOSTGATOR_USER" =~ ^[a-zA-Z0-9_][a-zA-Z0-9_.-]*$ ]]
+          [[ "$HOSTGATOR_PORT" =~ ^[0-9]{1,5}$ ]]
+          (( 10#$HOSTGATOR_PORT >= 1 && 10#$HOSTGATOR_PORT <= 65535 ))
+          [[ -n "$HOSTGATOR_SSH_KEY" && -n "$HOSTGATOR_SSH_PASSPHRASE" ]]
+          [[ "$GITHUB_SHA" =~ ^[0-9a-f]{40}$ ]]
+
+          work=$(mktemp -d "$RUNNER_TEMP/rpa-deploy.XXXXXX")
+          cleanup() {
+            if [[ -n "${SSH_AGENT_PID:-}" ]]; then
+              ssh-agent -k >/dev/null 2>&1 || true
+            fi
+            rm -rf -- "$work"
+          }
+          trap cleanup EXIT
+          agent_environment=$(ssh-agent -s)
+          eval "$agent_environment" >/dev/null
+          cat > "$work/askpass" <<'ASKPASS'
+          #!/usr/bin/env bash
+          printf '%s\n' "$HOSTGATOR_SSH_PASSPHRASE"
+          ASKPASS
+          chmod 700 "$work/askpass"
+          export SSH_ASKPASS="$work/askpass" SSH_ASKPASS_REQUIRE=force DISPLAY=:0
+          if ! ssh-add - <<< "$HOSTGATOR_SSH_KEY" >/dev/null 2>&1; then
+            echo '::error::Não foi possível desbloquear a chave SSH.'
+            exit 1
+          fi
+          unset HOSTGATOR_SSH_KEY HOSTGATOR_SSH_PASSPHRASE
+
+          if [[ -n "$HOSTGATOR_KNOWN_HOSTS" ]]; then
+            printf '%s\n' "$HOSTGATOR_KNOWN_HOSTS" > "$work/known_hosts"
+          else
+            echo '::warning::Configure HOSTGATOR_KNOWN_HOSTS para autenticar a chave do servidor por uma fonte independente.'
+            ssh-keyscan -T 15 -p "$HOSTGATOR_PORT" "$HOSTGATOR_HOST" > "$work/known_hosts" 2>/dev/null
+          fi
+          [[ -s "$work/known_hosts" ]]
+          ssh_options=(
+            -p "$HOSTGATOR_PORT" -l "$HOSTGATOR_USER"
+            -o BatchMode=yes -o ForwardAgent=no
+            -o StrictHostKeyChecking=yes
+            -o "UserKnownHostsFile=$work/known_hosts"
+            -o GlobalKnownHostsFile=/dev/null
+            -o ConnectTimeout=20 -o ConnectionAttempts=1
+            -o ServerAliveInterval=15 -o ServerAliveCountMax=3
+          )
+
+          # Transporta o histórico pelo SSH, sem credenciais GitHub no servidor.
+          git bundle create "$work/main.bundle" HEAD
+          remote_script=$(cat <<'REMOTE'
+          set -Eeuo pipefail
+          umask 077
+          repo=/home1/rpamec18/repositorios/Sistema-RPA
+          destination=/home1/rpamec18/public_html
+          expected_sha=$1
+          for command in git rsync flock tar mktemp find; do
+            command -v "$command" >/dev/null
+          done
+          [[ -d "$repo/.git" && ! -L "$repo/.git" ]]
+          [[ "$(cd "$repo" && pwd -P)" == "$repo" ]]
+          mkdir -p "$destination"
+          [[ "$(cd "$destination" && pwd -P)" == "$destination" ]]
+          [[ ! -L "$destination/uploads" ]]
+          exec 9> "$repo/.git/actions-deploy.lock"
+          flock -w 120 9
+          stage=$(mktemp -d /home1/rpamec18/.rpa-deploy.XXXXXX)
+          cleanup() {
+            # A única remoção recursiva é da pasta temporária fora do site.
+            [[ "$stage" == /home1/rpamec18/.rpa-deploy.* ]] && rm -rf -- "$stage"
+          }
+          trap cleanup EXIT
+          git_repo() { git -c core.hooksPath=/dev/null -C "$repo" "$@"; }
+
+          echo 'Recebendo o commit para publicação.'
+          cat > "$stage/main.bundle"
+          git_repo bundle verify "$stage/main.bundle" >/dev/null 2>&1
+          git_repo diff --quiet
+          git_repo diff --cached --quiet
+          git_repo remote get-url origin >/dev/null
+          git_repo fetch --quiet --no-tags "$stage/main.bundle" HEAD
+          commit=$(git_repo rev-parse FETCH_HEAD)
+          [[ "$commit" == "$expected_sha" ]]
+          if git_repo show-ref --verify --quiet refs/remotes/origin/main; then
+            previous=$(git_repo rev-parse refs/remotes/origin/main)
+            if [[ "$previous" != "$commit" ]] && git_repo merge-base --is-ancestor "$commit" "$previous"; then
+              echo 'Push antigo ignorado: origin/main já está mais adiante.'
+              exit 0
+            fi
+          fi
+          if git_repo show-ref --verify --quiet refs/heads/main; then
+            git_repo merge-base --is-ancestor main "$commit"
+            git_repo checkout --quiet main
+            git_repo merge --quiet --ff-only "$commit"
+          else
+            git_repo checkout --quiet -b main "$commit"
+          fi
+          git_repo update-ref refs/remotes/origin/main "$commit"
+          git_repo branch --set-upstream-to=origin/main main >/dev/null
+
+          echo 'Publicando somente os arquivos versionados de public/.'
+          mkdir "$stage/release"
+          git_repo archive "$commit" public/ | tar -x -C "$stage/release"
+          source="$stage/release/public"
+          [[ -f "$source/index.html" && -f "$source/.htaccess" ]]
+          links=$(find "$source" -type l -print -quit)
+          [[ -z "$links" ]]
+          rsync -rt --perms --chmod=D755,F644 --omit-dir-times \
+            --delay-updates --delete-delay \
+            --filter='P /uploads/***' \
+            --filter='+ /uploads/' --filter='+ /uploads/.htaccess' \
+            --filter='- /uploads/***' \
+            --exclude='private/' --exclude='database/' --exclude='docs/' \
+            --exclude='.git/' --exclude='.github/' --exclude='migrations/' \
+            --exclude='README*' --exclude='.env*' --exclude='config.php' \
+            --exclude='*.sql' \
+            "$source/" "$destination/"
+          echo 'Deploy concluído; uploads e configuração privada preservados.'
+          REMOTE
+          )
+          printf -v remote_command 'bash -c %q -- %q' "$remote_script" "$GITHUB_SHA"
+          if ! ssh "${ssh_options[@]}" "$HOSTGATOR_HOST" "$remote_command" \
+            < "$work/main.bundle" 2> "$work/ssh-error"; then
+            echo '::error::Falha no SSH/deploy. Confira conexão, chave, known_hosts, ferramentas remotas e estado limpo/fast-forward do repositório.'
+            exit 1
+          fi
