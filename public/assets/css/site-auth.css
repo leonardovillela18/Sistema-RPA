@@ -1,4 +1,4 @@
-@import url('./navbar-login.css?v=20260929-2');
+@import url('./navbar-login.css?v=20260929-5');
 
 [hidden]{display:none !important}
 .whatsapp-float{position:fixed;right:24px;bottom:24px;z-index:1001;display:inline-flex;align-items:center;justify-content:center;gap:10px;width:auto;height:auto;min-height:54px;padding:13px 20px;border:0;border-radius:999px;box-shadow:0 8px 28px #0005;background:#25d366;color:#082a15;text-decoration:none;font-size:16px;line-height:1.2;font-weight:800;white-space:nowrap;transition:transform .2s}
@@ -10,8 +10,5 @@ a:focus-visible{outline:2px solid #fff;outline-offset:4px}
 body,.home-servicos,.home-contato{background-image:url('/assets/img/gears.svg');background-repeat:repeat;background-size:1100px 850px}
 footer{padding-bottom:100px}
 @media(max-width:560px){
- .site-header{gap:10px;padding:10px 16px}
- .site-header nav ul{gap:3px}
- .site-header nav a{font-size:.75rem;padding:10px 7px}
  .whatsapp-float{right:14px;bottom:14px;padding:11px 16px;font-size:.9rem}
 }

@@ -2,7 +2,9 @@
 [data-services-grid]{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;width:min(1200px,92%);margin:0 auto 30px}
 .service-card{display:flex;flex-direction:column;overflow:hidden;min-width:0;padding:0;border:1px solid #ffffff14;border-radius:14px;background:#171717;color:#fff;cursor:pointer;text-align:left;font:inherit;box-shadow:0 6px 20px #0002;transition:transform .2s,border-color .2s}
 .service-card img,.service-card video{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:contain;background:#111;pointer-events:none}
-.service-card-title{display:block;padding:18px 20px;font-size:1.12rem;font-weight:750;line-height:1.4}
+.service-card-title{position:relative;display:block;flex:1;width:100%;padding:22px 24px 24px;border-top:1px solid #ffffff1a;background:linear-gradient(120deg,#232323,#171717);font-family:"Bahnschrift","Arial Narrow","Segoe UI",sans-serif;font-size:clamp(1.2rem,1.65vw,1.5rem);font-weight:800;letter-spacing:.025em;text-transform:uppercase;line-height:1.35;text-wrap:pretty;color:#fff}
+.service-card-title::before{content:"";display:block;width:42px;height:4px;margin-bottom:14px;background:#e33d3d;border-radius:4px;transition:width .2s}
+.service-card:hover .service-card-title::before,.service-card:focus-visible .service-card-title::before{width:72px}
 .service-card:hover{transform:translateY(-3px);border-color:#c62828}
 .service-card:focus-visible,.service-close:focus-visible{outline:3px solid #e35a5a;outline-offset:4px}
 .service-dialog{position:fixed;inset:0;margin:auto;padding:0;width:min(1280px,calc(100% - 32px));max-height:calc(100dvh - 32px);border:1px solid #ffffff26;border-radius:18px;background:#171717;color:#f1f3f4;box-shadow:0 24px 100px #0009;overflow:hidden}
@@ -23,8 +25,8 @@
 .service-quote:hover{background:#a61e1e}
 body.service-modal-open{overflow:hidden}
 @media(max-width:800px){[data-services-grid]{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:520px){[data-services-grid]{grid-template-columns:1fr}.service-dialog-head{padding:16px}.service-dialog-body{padding:18px}.service-quote{width:100%;text-align:center}.service-card-title{font-size:1.05rem}}
-@media(prefers-reduced-motion:reduce){.service-card{transition:none}.service-card:hover{transform:none}}
+@media(max-width:520px){[data-services-grid]{grid-template-columns:1fr}.service-dialog-head{padding:16px}.service-dialog-body{padding:18px}.service-quote{width:100%;text-align:center}.service-card-title{font-size:1.25rem;padding:20px}}
+@media(prefers-reduced-motion:reduce){.service-card,.service-card-title::before{transition:none}.service-card:hover{transform:none}}
 
 .service-detail-layout{display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr);gap:36px;align-items:start}
 .service-gallery{position:sticky;top:0;min-width:0}

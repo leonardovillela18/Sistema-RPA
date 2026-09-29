@@ -52,7 +52,7 @@ function renderHeaderActions() {
  const link = document.createElement('a'); link.className = 'auth-link';
  link.href = '/acesso.html'; link.textContent = user ? 'Sair' : 'Entrar';
  if(user) link.addEventListener('click', async e => { e.preventDefault(); try { await logout(); location.href='/index.html'; } catch(e) { alert(e.message); } });
- actions.append(link); header.append(actions);
+ actions.append(link); (header.querySelector('.navigation-panel') || header).append(actions);
 }
 function syncAdminVisibility(root = document) {
 	const adminOnlyNodes = root.querySelectorAll('[data-admin-only]');

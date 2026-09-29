@@ -14,12 +14,61 @@
   const header = document.createElement('header');
   header.className = 'site-header';
   const page = location.pathname.split('/').pop() || 'index.html';
-  header.innerHTML = `<a class="logo" href="/index.html" aria-label="RPA Mecânica Diesel — início"><img src="/assets/img/logo_barra.jpeg" alt="RPA Mecânica Diesel"></a><nav aria-label="Navegação principal"><ul>${links.map(([file, label]) => `<li><a href="/${file}"${page === file ? ' aria-current="page"' : ''}>${label}</a></li>`).join('')}</ul></nav>`;
+  header.innerHTML = `<a class="logo" href="/index.html" aria-label="RPA Mecânica Diesel — início"><img src="/assets/img/logo_barra.jpeg" alt="RPA Mecânica Diesel" width="124" height="46"></a><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="navigation-panel" aria-label="Abrir menu de navegação"><span aria-hidden="true">☰</span> Menu</button><div class="navigation-panel" id="navigation-panel"><nav aria-label="Navegação principal"><ul>${links.map(([file, label]) => `<li><a href="/${file}"${page === file ? ' aria-current="page"' : ''}>${label}</a></li>`).join('')}</ul></nav></div>`;
   document.currentScript.replaceWith(header);
-  const measureHeader = () => document.documentElement.style.setProperty('--header-h', `${header.offsetHeight}px`);
-  new ResizeObserver(measureHeader).observe(header);
-  measureHeader();
+  const toggle = header.querySelector('.menu-toggle');
+  header.prepend(toggle);
+  const panel = header.querySelector('.navigation-panel');
+  const compact = window.matchMedia('(max-width: 980px), (max-height: 500px)');
+  function setMenu(open, restoreFocus = false) {
+    const expanded = compact.matches && open;
+    toggle.hidden = !compact.matches;
+    toggle.setAttribute('aria-expanded', String(expanded));
+    toggle.setAttribute('aria-label', expanded ? 'Fechar menu de navegação' : 'Abrir menu de navegação');
+    panel.hidden = compact.matches && !expanded;
+    document.body.classList.toggle('navigation-open', expanded);
+    if (restoreFocus && compact.matches) toggle.focus();
+  }
+  toggle.addEventListener('click', () => setMenu(toggle.getAttribute('aria-expanded') !== 'true'));
+  panel.addEventListener('click', event => { if(event.target.closest('a')) setMenu(false); });
+  document.addEventListener('keydown', event => {
+    if(event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') { setMenu(false, true); event.preventDefault(); }
+  });
+  document.addEventListener('pointerdown', event => { if(!header.contains(event.target)) setMenu(false); });
+  const resetMenu = () => setMenu(false, compact.matches && panel.contains(document.activeElement));
+  if(compact.addEventListener) compact.addEventListener('change', resetMenu); else compact.addListener(resetMenu);
+  setMenu(false);
+
+  // A área visível muda com a rotação, as barras do navegador e o teclado virtual.
+  const measureLayout = () => {
+    const viewport = window.visualViewport;
+    const unzoomed = !viewport || Math.abs(viewport.scale - 1) < 0.01;
+    const height = viewport && unzoomed ? viewport.height : window.innerHeight;
+    document.documentElement.style.setProperty('--header-h', `${header.offsetHeight}px`);
+    document.documentElement.style.setProperty('--viewport-height', `${Math.round(height)}px`);
+    document.documentElement.style.setProperty('--viewport-top', `${viewport && unzoomed ? Math.round(viewport.offsetTop) : 0}px`);
+    const focused = document.activeElement;
+    document.body.classList.toggle('editing-field', Boolean(focused?.matches('input,textarea,select,[contenteditable="true"]')));
+  };
+  let pendingFrame = false;
+  const scheduleLayout = () => {
+    if(pendingFrame) return;
+    pendingFrame = true;
+    window.requestAnimationFrame(() => { pendingFrame = false; measureLayout(); });
+  };
+  if(window.ResizeObserver) new window.ResizeObserver(scheduleLayout).observe(header);
+  window.addEventListener('resize', scheduleLayout);
+  window.addEventListener('orientationchange', () => { setMenu(false); scheduleLayout(); });
+  window.visualViewport?.addEventListener('resize', scheduleLayout);
+  window.visualViewport?.addEventListener('scroll', scheduleLayout);
+  document.addEventListener('focusin', scheduleLayout);
+  document.addEventListener('focusout', scheduleLayout);
+  document.addEventListener('rpa-auth-change', scheduleLayout);
+  header.querySelector('img').addEventListener('load', scheduleLayout);
+  document.fonts?.ready.then(scheduleLayout);
+  measureLayout();
   document.addEventListener('DOMContentLoaded', () => {
+    scheduleLayout();
     const whatsapp = document.createElement('a');
     whatsapp.className = 'whatsapp-float';
     whatsapp.href = 'https://wa.me/5516991058868';
