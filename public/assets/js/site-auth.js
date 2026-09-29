@@ -3,7 +3,7 @@ let user = null;
 const currentUser = () => user;
 // Mantém o nome usado pelos controles existentes de edição do conteúdo.
 const isAdmin = () => Boolean(user && !user.password_change_required);
-const canManageUsers = () => isAdmin() && user.can_manage_users;
+const canManageUsers = () => Boolean(isAdmin() && user.features_ready && user.can_manage_users);
 async function loadSession() { const result = await RPAApi.request('/api/auth/me.php'); user=result.user; RPAApi.setCsrf(result.csrf); if(user?.password_change_required && currentPageFile()!=='alterar-senha.html') location.replace('/alterar-senha.html'); refresh(); }
 async function login(login,password) { await RPAApi.request('/api/auth/login.php',{login,password}); await loadSession(); }
 async function logout() { await RPAApi.request('/api/auth/logout.php',{}); user=null; refresh(); }
@@ -104,6 +104,7 @@ function refresh(root = document) {
 	renderHeaderActions();
 	syncAdminVisibility(root);
 	syncContactFields(root);
+	document.dispatchEvent(new Event('rpa-auth-change'));
 }
 
 

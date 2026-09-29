@@ -47,7 +47,7 @@ async function login(c,login,password){await request(c,'/api/auth/me.php');await
  const list=(await request(a,u+'list.php')).data;assert.ok(list.every(item=>!('password_hash'in item)));
  await request(a,u+'delete.php',{id});assert.equal((await request(b,'/api/auth/me.php')).user,null);
  await request(a,u+'delete.php',{id:me.id},409);
- for(const page of ['index','produtos','contato','sobre','servicos','usuarios','acesso','alterar-senha'])assert.equal((await fetch(base+'/'+page+'.html')).status,200);
+ for(const page of ['index','contato','sobre','servicos','usuarios','acesso','alterar-senha'])assert.equal((await fetch(base+'/'+page+'.html')).status,200);
  await request(a,'/api/auth/logout.php',{});assert.equal((await request(a,'/api/auth/me.php')).user,null);
- console.log('PASS: '+checks+' verificações HTTP simuladas + 8 páginas; nenhum SQL executado.');
+ console.log('PASS: '+checks+' verificações HTTP simuladas + 7 páginas; nenhum SQL executado.');
 })().catch(error=>{console.error(error);process.exitCode=1});

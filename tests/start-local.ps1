@@ -31,7 +31,7 @@ if (!(Port-Open 18080)) {
     $previousConfig = $env:RPA_CONFIG
     try {
         $env:RPA_CONFIG = Join-Path $runtime 'config.php'
-        $server = Start-Process $php -ArgumentList @('-d', ('session.save_path="' + $runtime + '/sessions"'), '-d', ('upload_tmp_dir="' + $runtime + '/tmp"'), '-d','upload_max_filesize=5M','-d','post_max_size=16M','-S','127.0.0.1:18080','-t', ('"' + $projectRoot + '\public"')) -WindowStyle Hidden -PassThru -RedirectStandardOutput "$runtime/php.out.log" -RedirectStandardError "$runtime/php.err.log"
+        $server = Start-Process $php -ArgumentList @('-d', ('session.save_path="' + $runtime + '/sessions"'), '-d', ('upload_tmp_dir="' + $runtime + '/tmp"'), '-d','upload_max_filesize=15M','-d','post_max_size=16M','-S','127.0.0.1:18080','-t', ('"' + $projectRoot + '\public"')) -WindowStyle Hidden -PassThru -RedirectStandardOutput "$runtime/php.out.log" -RedirectStandardError "$runtime/php.err.log"
         $server.Id | Set-Content "$runtime/php.pid"
         $server.StartTime.Ticks | Set-Content "$runtime/php-start.txt"
     } finally { $env:RPA_CONFIG = $previousConfig }

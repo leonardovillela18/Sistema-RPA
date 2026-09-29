@@ -1,20 +1,24 @@
-// Conteúdo da apresentação RPA. Edite títulos, imagens e detalhes neste arquivo.
-window.RPAServices = [
+[
   {
     "id": "cardan",
     "title": "Cardan e Cardan da Tomada de Força",
-    "image": "/assets/img/services/cardan.png",
     "sections": [
       {
         "heading": "",
         "text": "A RPA Mecânica Diesel é especializada na fabricação, manutenção e recuperação de cardans para caminhões, carretas e implementos agrícolas, incluindo cardans da tomada de força (PTO). Trabalhamos com peças de alta qualidade, balanceamento preciso e mão de obra especializada, garantindo mais segurança, durabilidade e desempenho para o seu equipamento.\n\nRealizamos substituição de cruzetas, luvas, ponteiras, soldas especiais, alinhamento e balanceamento, assegurando perfeito funcionamento e maior vida útil do conjunto. Oferecemos soluções completas com agilidade, confiança e padrão profissional para atender as demandas do transporte pesado e do setor agrícola."
+      }
+    ],
+    "media": [
+      {
+        "id": "original-cardan",
+        "url": "/assets/img/services/cardan.png",
+        "type": "image"
       }
     ]
   },
   {
     "id": "engate-automatico",
     "title": "Kit Completo Engate Automático",
-    "image": "/assets/img/services/engate-automatico.png",
     "sections": [
       {
         "heading": "Instalação de Engate Automático Boca de Lobo",
@@ -36,12 +40,18 @@ window.RPAServices = [
         "heading": "Estrutura e Padrão Técnico",
         "text": "Utilizamos pinos forjados de alta resistência, geralmente nas medidas 50 mm ou 52 mm, conforme a necessidade da aplicação. Todo o processo é executado por profissionais qualificados, seguindo padrões técnicos rigorosos para garantir durabilidade e desempenho"
       }
+    ],
+    "media": [
+      {
+        "id": "original-engate-automatico",
+        "url": "/assets/img/services/engate-automatico.png",
+        "type": "image"
+      }
     ]
   },
   {
     "id": "kit-hidraulico",
     "title": "Kit Hidráulico Vasculante",
-    "image": "/assets/img/services/kit-hidraulico.png",
     "sections": [
       {
         "heading": "Potência, Segurança e Alto Desempenho para o Seu Veículo",
@@ -67,12 +77,18 @@ window.RPAServices = [
         "heading": "Kit Completo para Instalação",
         "text": "Acompanha todos os suportes, engates, parafusos e acessórios necessários para uma montagem prática, rápida e totalmente segura."
       }
+    ],
+    "media": [
+      {
+        "id": "original-kit-hidraulico",
+        "url": "/assets/img/services/kit-hidraulico.png",
+        "type": "image"
+      }
     ]
   },
   {
     "id": "freio-transbordo",
     "title": "Sistema de Freio de Transbordo",
-    "image": "/assets/img/services/freio-transbordo.png",
     "sections": [
       {
         "heading": "",
@@ -90,12 +106,18 @@ window.RPAServices = [
         "heading": "Aplicação Agrícola",
         "text": "Na RPA Mecânica Diesel instalamos kits específicos para tratores transbordos e carretas agrícolas permitindo que o trator opere diretamente o freio do implemento com total integração e segurança oferecemos venda instalação manutenção e suporte técnico sempre priorizando qualidade confiança e satisfação do cliente"
       }
+    ],
+    "media": [
+      {
+        "id": "original-freio-transbordo",
+        "url": "/assets/img/services/freio-transbordo.png",
+        "type": "image"
+      }
     ]
   },
   {
     "id": "quinta-roda",
     "title": "Quinta Roda Canavieira e Rodoviária",
-    "image": "/assets/img/services/quinta-roda.png",
     "sections": [
       {
         "heading": "",
@@ -126,12 +148,18 @@ window.RPAServices = [
           "Manutenção preventiva e corretiva."
         ]
       }
+    ],
+    "media": [
+      {
+        "id": "original-quinta-roda",
+        "url": "/assets/img/services/quinta-roda.png",
+        "type": "image"
+      }
     ]
   },
   {
     "id": "sinalizador-pto",
     "title": "Kit Sinalizador de Tomada de Força + Joystick",
-    "image": "/assets/img/services/sinalizador-pto.png",
     "sections": [
       {
         "heading": "",
@@ -179,12 +207,18 @@ window.RPAServices = [
         "heading": "Garantia e Entrega",
         "text": "Produto novo com nota fiscal e garantia de fábrica. Realizamos a venda e a instalação com equipe especializada, oferecendo suporte técnico completo e atendimento pós-venda para garantir o perfeito funcionamento do sistema."
       }
+    ],
+    "media": [
+      {
+        "id": "original-sinalizador-pto",
+        "url": "/assets/img/services/sinalizador-pto.png",
+        "type": "image"
+      }
     ]
   },
   {
     "id": "quarto-eixo",
     "title": "4º Eixo para Carretas e Caminhões",
-    "image": "/assets/img/services/quarto-eixo.png",
     "sections": [
       {
         "heading": "",
@@ -221,28 +255,47 @@ window.RPAServices = [
         "heading": "",
         "text": "Fale conosco e solicite seu orçamento. Mais desempenho e resultado para o seu veículo."
       }
+    ],
+    "media": [
+      {
+        "id": "original-quarto-eixo",
+        "url": "/assets/img/services/quarto-eixo.png",
+        "type": "image"
+      }
     ]
   },
   {
     "id": "transformacao-freio",
     "title": "Kit transformação freio a óleo para freio a AR",
-    "image": "/assets/img/services/transformacao-freio.png",
     "sections": [
       {
         "heading": "",
         "text": "Transformação de freio a óleo para freio a ar."
+      }
+    ],
+    "media": [
+      {
+        "id": "original-transformacao-freio",
+        "url": "/assets/img/services/transformacao-freio.png",
+        "type": "image"
       }
     ]
   },
   {
     "id": "para-choque",
     "title": "Fabricação de Para-choque",
-    "image": "/assets/img/services/para-choque.png",
     "sections": [
       {
         "heading": "",
         "text": "Na RPA Mecânica Diesel, atuamos com excelência na comercialização e instalação de para-choques de caminhão em aço, oferecendo soluções completas que garantem mais segurança, resistência e durabilidade para o transporte pesado. Trabalhamos com produtos de alta qualidade, desenvolvidos para suportar as condições mais severas de uso, tanto no campo quanto nas estradas.\n\nContamos com mão de obra altamente qualificada para realizar a instalação com precisão técnica, assegurando perfeito alinhamento, excelente acabamento e máxima proteção para o seu veículo. Nosso compromisso é entregar robustez, confiabilidade e desempenho superior em cada serviço realizado."
       }
+    ],
+    "media": [
+      {
+        "id": "original-para-choque",
+        "url": "/assets/img/services/para-choque.png",
+        "type": "image"
+      }
     ]
   }
-];
+]
