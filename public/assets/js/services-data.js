@@ -1,0 +1,248 @@
+// Conteúdo da apresentação RPA. Edite títulos, imagens e detalhes neste arquivo.
+window.RPAServices = [
+  {
+    "id": "cardan",
+    "title": "Cardan e Cardan da Tomada de Força",
+    "image": "/assets/img/services/cardan.png",
+    "sections": [
+      {
+        "heading": "",
+        "text": "A RPA Mecânica Diesel é especializada na fabricação, manutenção e recuperação de cardans para caminhões, carretas e implementos agrícolas, incluindo cardans da tomada de força (PTO). Trabalhamos com peças de alta qualidade, balanceamento preciso e mão de obra especializada, garantindo mais segurança, durabilidade e desempenho para o seu equipamento.\n\nRealizamos substituição de cruzetas, luvas, ponteiras, soldas especiais, alinhamento e balanceamento, assegurando perfeito funcionamento e maior vida útil do conjunto. Oferecemos soluções completas com agilidade, confiança e padrão profissional para atender as demandas do transporte pesado e do setor agrícola."
+      }
+    ]
+  },
+  {
+    "id": "engate-automatico",
+    "title": "Kit Completo Engate Automático",
+    "image": "/assets/img/services/engate-automatico.png",
+    "sections": [
+      {
+        "heading": "Instalação de Engate Automático Boca de Lobo",
+        "text": "Na nossa oficina, realizamos a instalação de Engate Automático Boca de Lobo com total garantia de qualidade, segurança e conformidade técnica. Trabalhamos com componentes de alta resistência, indicados para caminhões e implementos rodoviários utilizados em operações severas, como nos segmentos canavieiro, florestal e em composições do tipo “Romeu e Julieta”."
+      },
+      {
+        "heading": "Aplicação do Serviço",
+        "text": "Executamos a instalação em reboques, semirreboques, rodotrens e dollies, tanto para uso rodoviário quanto off-road. Avaliamos a estrutura do veículo para assegurar compatibilidade, alinhamento correto e máxima eficiência no acoplamento."
+      },
+      {
+        "heading": "Sistema de Acoplamento",
+        "text": "Instalamos o sistema de engate com travamento automático, garantindo encaixe preciso e funcionamento adequado no ajuste do cambão. O serviço é realizado com atenção aos detalhes técnicos, proporcionando rapidez no acoplamento e maior produtividade na operação."
+      },
+      {
+        "heading": "Segurança e Resistência",
+        "text": "Trabalhamos com engates fabricados em aço de alta resistência, preparados para suportar cargas elevadas, impactos e torções. Após a instalação, realizamos testes para assegurar o correto travamento e a plena segurança do conjunto."
+      },
+      {
+        "heading": "Estrutura e Padrão Técnico",
+        "text": "Utilizamos pinos forjados de alta resistência, geralmente nas medidas 50 mm ou 52 mm, conforme a necessidade da aplicação. Todo o processo é executado por profissionais qualificados, seguindo padrões técnicos rigorosos para garantir durabilidade e desempenho"
+      }
+    ]
+  },
+  {
+    "id": "kit-hidraulico",
+    "title": "Kit Hidráulico Vasculante",
+    "image": "/assets/img/services/kit-hidraulico.png",
+    "sections": [
+      {
+        "heading": "Potência, Segurança e Alto Desempenho para o Seu Veículo",
+        "text": "Leve seu veículo a um novo nível de eficiência com o Kit Hidráulico. Desenvolvido para quem exige resistência, confiabilidade e excelente desempenho no dia a dia, ele oferece a solução ideal para aplicações profissionais que não podem parar. Garanta já o seu! 👉 fale conosco pelo WhatsApp, receba atendimento especializado, esclareça suas dúvidas e aproveite condições exclusivas."
+      },
+      {
+        "heading": "Diferenciais do Produto",
+        "text": ""
+      },
+      {
+        "heading": "Tanque de 180 Litros com Sistema de Filtragem",
+        "text": "Maior capacidade de armazenamento com filtragem eficiente, proporcionando melhor desempenho e maior vida útil ao sistema hidráulico."
+      },
+      {
+        "heading": "Mangueiras Prensadas de Fábrica",
+        "text": "Produzidas com alto padrão de qualidade, oferecem mais segurança, resistência e durabilidade em operações intensas."
+      },
+      {
+        "heading": "Kit Sinalizador para Acionamento da Tomada de Força",
+        "text": "Atende à norma Contran 563, assegurando que seu veículo esteja dentro das exigências legais e de segurança."
+      },
+      {
+        "heading": "Kit Completo para Instalação",
+        "text": "Acompanha todos os suportes, engates, parafusos e acessórios necessários para uma montagem prática, rápida e totalmente segura."
+      }
+    ]
+  },
+  {
+    "id": "freio-transbordo",
+    "title": "Sistema de Freio de Transbordo",
+    "image": "/assets/img/services/freio-transbordo.png",
+    "sections": [
+      {
+        "heading": "",
+        "text": "Na RPA Mecânica Diesel somos especialistas na venda e instalação de sistema de freio de transbordo com gerador de ar oferecendo soluções completas para garantir mais segurança eficiência e desempenho no campo e no transporte pesado trabalhamos com equipamentos de alta qualidade e realizamos a instalação com mão de obra especializada assegurando que o sistema de freio pneumático funcione com máxima confiabilidade mesmo nas condições mais exigentes"
+      },
+      {
+        "heading": "Funcionamento do Sistema",
+        "text": "O sistema utiliza um compressor acionado pelo motor responsável por comprimir o ar atmosférico e enviá lo para os reservatórios garantindo pressão constante e pronta resposta na frenagem O ar comprimido fica armazenado adequadamente e ao acionar o pedal do freio a válvula de pé libera o ar para as câmaras de freio conhecidas como cuícas convertendo a pressão em força mecânica e proporcionando uma frenagem eficiente segura e precisa"
+      },
+      {
+        "heading": "Freio de Estacionamento e Emergência",
+        "text": "O sistema conta com mecanismo automático de segurança que atua em caso de perda de pressão acionando molas internas que travam as rodas garantindo parada imediata e segurança total para o operador e o equipamento"
+      },
+      {
+        "heading": "Aplicação Agrícola",
+        "text": "Na RPA Mecânica Diesel instalamos kits específicos para tratores transbordos e carretas agrícolas permitindo que o trator opere diretamente o freio do implemento com total integração e segurança oferecemos venda instalação manutenção e suporte técnico sempre priorizando qualidade confiança e satisfação do cliente"
+      }
+    ]
+  },
+  {
+    "id": "quinta-roda",
+    "title": "Quinta Roda Canavieira e Rodoviária",
+    "image": "/assets/img/services/quinta-roda.png",
+    "sections": [
+      {
+        "heading": "",
+        "text": "A RPA Mecânica Diesel é especializada na venda e recuperação de quinta roda, atendendo tanto o segmento rodoviário quanto o setor canavieiro. Trabalhamos com foco em qualidade, segurança e durabilidade, garantindo máxima performance para caminhões e cavalos mecânicos."
+      },
+      {
+        "heading": "Nossos produtos",
+        "text": "",
+        "items": [
+          "Quinta roda rodoviária nova e seminova",
+          "Quinta roda canavieira reforçada",
+          "Peças e componentes para reposição",
+          "Equipamentos revisados e prontos para instalação"
+        ]
+      },
+      {
+        "heading": "",
+        "text": "Todos os produtos passam por rigoroso controle de qualidade, assegurando resistência, encaixe perfeito e maior vida útil."
+      },
+      {
+        "heading": "Nossos serviços",
+        "text": "",
+        "items": [
+          "Recuperação completa de quinta roda",
+          "Reforma estrutural com solda técnica especializada",
+          "Troca de componentes desgastados",
+          "Regulagem e testes de funcionamento",
+          "Manutenção preventiva e corretiva."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sinalizador-pto",
+    "title": "Kit Sinalizador de Tomada de Força + Joystick",
+    "image": "/assets/img/services/sinalizador-pto.png",
+    "sections": [
+      {
+        "heading": "",
+        "text": "O Kit Sinalizador da Tomada de Força é fornecido e instalado pela nossa empresa para atender integralmente à Resolução Nº 563 do CONTRAN, que exige sistemas de segurança em veículos equipados com tomada de força (PTO). Nós comercializamos o kit completo e realizamos a instalação adequada, garantindo que a PTO não permaneça acionada com o veículo em deslocamento, prevenindo acidentes, evitando danos mecânicos e eliminando riscos de multas.\n\nTrabalhamos com componentes de alta durabilidade e realizamos a instalação de forma técnica e segura, assegurando que o veículo fique totalmente dentro das normas vigentes.\n\n⚠️ Atenção: A tomada de força não está inclusa no kit."
+      },
+      {
+        "heading": "Benefícios",
+        "text": "",
+        "items": [
+          "Evita autuações e mantém o veículo regularizado para licenciamento",
+          "Atendimento total à Resolução Nº 563 do CONTRAN",
+          "Instalação profissional realizada pela nossa equipe",
+          "Compatível com diversos modelos de caminhões",
+          "Kit completo com todos os itens necessários para montagem"
+        ]
+      },
+      {
+        "heading": "Especificações Técnicas",
+        "text": "",
+        "items": [
+          "Tipo: Kit Sinalizador para Acionamento de PTO",
+          "Norma: Resolução Nº 563 do CONTRAN",
+          "Alimentação: 12V ou 24V, sistema bivolt",
+          "Material: Plástico ABS e componentes elétricos de alta resistência",
+          "Peso aproximado: 1,5 kg",
+          "Dimensões: 20 x 20 x 15 cm",
+          "Aplicação: Caminhões com sistemas hidráulicos como báscula, guindaste, bomba hidráulica e compactador",
+          "Compatibilidade: Mercedes-Benz, Volkswagen, Scania, Volvo, Iveco, Ford, DAF, entre outras marcas",
+          "Garantia: 90 dias contra defeitos de fabricação."
+        ]
+      },
+      {
+        "heading": "Composição do Kit",
+        "text": "",
+        "items": [
+          "Maneco basculante",
+          "Limite switch",
+          "Indicador luminoso de acionamento",
+          "Chicote elétrico completo",
+          "Interruptor de segurança",
+          "Manual de instalação"
+        ]
+      },
+      {
+        "heading": "Garantia e Entrega",
+        "text": "Produto novo com nota fiscal e garantia de fábrica. Realizamos a venda e a instalação com equipe especializada, oferecendo suporte técnico completo e atendimento pós-venda para garantir o perfeito funcionamento do sistema."
+      }
+    ]
+  },
+  {
+    "id": "quarto-eixo",
+    "title": "4º Eixo para Carretas e Caminhões",
+    "image": "/assets/img/services/quarto-eixo.png",
+    "sections": [
+      {
+        "heading": "",
+        "text": "Somos especializados na instalação de quarto eixo, oferecendo aumento de capacidade de carga, mais segurança e maior rentabilidade para sua frota, sempre conforme as normas vigentes"
+      },
+      {
+        "heading": "Benefícios",
+        "text": "",
+        "items": [
+          "Maior PBTC e mais carga por viagem",
+          "Melhor distribuição de peso e menor desgaste do veículo",
+          "Mais estabilidade e segurança na estrada",
+          "Mais produtividade e eficiência operacional"
+        ]
+      },
+      {
+        "heading": "Aplicação",
+        "text": "",
+        "items": [
+          "Carretas",
+          "Bitrucks",
+          "Caminhões de carga em geral"
+        ]
+      },
+      {
+        "heading": "Regularização",
+        "text": "",
+        "items": [
+          "Instalação com responsabilidade técnica",
+          "Apoio na regularização e emissão de CSV"
+        ]
+      },
+      {
+        "heading": "",
+        "text": "Fale conosco e solicite seu orçamento. Mais desempenho e resultado para o seu veículo."
+      }
+    ]
+  },
+  {
+    "id": "transformacao-freio",
+    "title": "Kit transformação freio a óleo para freio a AR",
+    "image": "/assets/img/services/transformacao-freio.png",
+    "sections": [
+      {
+        "heading": "",
+        "text": "Transformação de freio a óleo para freio a ar."
+      }
+    ]
+  },
+  {
+    "id": "para-choque",
+    "title": "Fabricação de Para-choque",
+    "image": "/assets/img/services/para-choque.png",
+    "sections": [
+      {
+        "heading": "",
+        "text": "Na RPA Mecânica Diesel, atuamos com excelência na comercialização e instalação de para-choques de caminhão em aço, oferecendo soluções completas que garantem mais segurança, resistência e durabilidade para o transporte pesado. Trabalhamos com produtos de alta qualidade, desenvolvidos para suportar as condições mais severas de uso, tanto no campo quanto nas estradas.\n\nContamos com mão de obra altamente qualificada para realizar a instalação com precisão técnica, assegurando perfeito alinhamento, excelente acabamento e máxima proteção para o seu veículo. Nosso compromisso é entregar robustez, confiabilidade e desempenho superior em cada serviço realizado."
+      }
+    ]
+  }
+];

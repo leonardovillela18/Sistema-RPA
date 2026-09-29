@@ -7,7 +7,7 @@ const canManageUsers = () => isAdmin() && user.can_manage_users;
 async function loadSession() { const result = await RPAApi.request('/api/auth/me.php'); user=result.user; RPAApi.setCsrf(result.csrf); if(user?.password_change_required && currentPageFile()!=='alterar-senha.html') location.replace('/alterar-senha.html'); refresh(); }
 async function login(login,password) { await RPAApi.request('/api/auth/login.php',{login,password}); await loadSession(); }
 async function logout() { await RPAApi.request('/api/auth/logout.php',{}); user=null; refresh(); }
-function getRedirectTarget() { if(user?.password_change_required) return '/alterar-senha.html'; const next=new URLSearchParams(location.search).get('next'); if(next==='usuarios.html' && !canManageUsers()) return '/index.html'; return ['index.html','produtos.html','contato.html','sobre.html','servicos.html','usuarios.html'].includes(next) ? '/'+next : (canManageUsers()?'/usuarios.html':'/index.html'); }
+function getRedirectTarget() { if(user?.password_change_required) return '/alterar-senha.html'; const next=new URLSearchParams(location.search).get('next'); if(next==='usuarios.html' && !canManageUsers()) return '/index.html'; return ['index.html','contato.html','sobre.html','servicos.html','usuarios.html'].includes(next) ? '/'+next : (canManageUsers()?'/usuarios.html':'/index.html'); }
 function currentPageFile() {
 	const fileName = window.location.pathname.split('/').pop();
 	return fileName || 'index.html';

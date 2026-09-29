@@ -3,6 +3,7 @@ DirectoryIndex index.html
 RewriteEngine On
 RewriteCond %{HTTPS} !=on
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+RewriteRule ^produtos\.html$ /servicos.html [R=301,L]
 RewriteRule (^|/)\.(?!well-known/) - [F,L]
 <FilesMatch "(?i)\.(sql|json|md|env|ini|log|bak|ya?ml)$">
     Require all denied

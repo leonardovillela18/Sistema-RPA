@@ -2,7 +2,7 @@
 (() => {
   const links = [
     ['index.html', 'INÍCIO'], ['servicos.html', 'SERVIÇOS'],
-    ['produtos.html', 'PRODUTOS'], ['sobre.html', 'SOBRE NÓS'],
+    ['sobre.html', 'SOBRE NÓS'],
     ['contato.html', 'CONTATO']
   ];
   const icons = {
