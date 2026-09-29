@@ -19,5 +19,9 @@ window.RPAApi = (() => {
  async function reload() { data=(await request('/api/public/snapshot.php')).data; }
  async function save(endpoint,payload) { await request('/api/admin/'+endpoint+'.php',payload); await reload(); }
  const ready=reload(); ready.catch(showError);
- return {request,ready,showError,setCsrf:value=>csrf=value,getProducts:()=>data.products,getContacts:()=>data.contacts,getAboutContent:()=>data.about,save};
+ return {request,ready,showError,setCsrf:value=>csrf=value,getProducts:()=>data.products,getContacts:()=>({
+  ...data.contacts,
+  instagramLabel: !data.contacts.instagramLabel || data.contacts.instagramLabel === '@mecanica_diesel_rpa' ? '@rpa_mecanica_diesel' : data.contacts.instagramLabel,
+  instagramLink: !data.contacts.instagramLink || data.contacts.instagramLink === 'https://www.instagram.com/mecanica_diesel_rpa/' ? 'https://www.instagram.com/rpa_mecanica_diesel/' : data.contacts.instagramLink
+ }),getAboutContent:()=>data.about,save};
 })();

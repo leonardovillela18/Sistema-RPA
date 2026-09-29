@@ -13,24 +13,13 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",Tahoma,sans-serif}
 body{background:var(--bg);color:var(--text);min-height:100vh}
 
-header{
-background:#000;
-padding:15px 60px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-position:fixed;
-width:100%;
-top:0;
-z-index:1000;
-gap:18px;
-}
 
-.logo img{height:auto;max-height:70px;width:auto;display:block;max-width:200px}
 
-nav ul{display:flex;list-style:none;gap:30px;flex-wrap:wrap;justify-content:flex-end}
-nav a{color:#bbb;text-decoration:none;font-weight:700;transition:0.3s}
-nav a:hover{color:#fff}
+
+
+
+
+
 
 main{padding:calc(var(--header-h) + 22px) 0 34px;min-height:calc(100vh - 70px)}
 
@@ -289,14 +278,14 @@ cursor:pointer;
 footer{background:#000;color:#aaa;text-align:center;padding:22px}
 
 @media (max-width:900px){
-header{padding:12px 20px}
-nav ul{gap:15px}
+
+
 .topbar{flex-direction:column;align-items:stretch}
 .new-product-btn{width:100%}
 }
 
 @media (max-width:640px){
-main{padding-top:96px}
+main{padding-top:var(--header-h)}
 .form-grid{grid-template-columns:1fr}
 .modal{padding:18px}
 .details-layout{grid-template-columns:1fr}

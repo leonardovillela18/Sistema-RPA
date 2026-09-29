@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="850" viewBox="0 0 1100 850">
+<defs><g id="gear" fill="none" stroke="#000" stroke-width="13"><circle r="36"/><circle r="13" stroke-width="8"/><path d="M0-32v-24M0 32v24M32 0h24M-32 0h-24M23-23l17-17M-23 23l-17 17M23 23l17 17M-23-23l-17-17" stroke-width="19"/></g></defs>
+<g opacity=".24"><use href="#gear" transform="translate(75 130) rotate(15) scale(1.5)"/><use href="#gear" transform="translate(950 390) rotate(35) scale(2)"/><use href="#gear" transform="translate(400 700) rotate(10) scale(.9)"/></g>
+</svg>
