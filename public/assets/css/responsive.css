@@ -94,3 +94,12 @@ body.navigation-open .whatsapp-float{visibility:hidden;pointer-events:none}
  .row-actions button,.password-tools button{min-height:44px;font-size:.9rem}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.site-header a,.whatsapp-float{transition:none}}
+
+/* Foto inteira no celular, independente da altura do texto ou da orientação. */
+@media(max-width:980px),(max-width:1200px) and (pointer:coarse){
+ .hero{display:block;min-height:0;padding:0;background:#111}
+ .hero::before{display:none}
+ .hero-photo{display:block;width:100%;height:auto;max-height:none;object-fit:contain}
+ .hero-inner{grid-template-columns:minmax(0,1fr);padding:28px 0 36px}
+ .hero-right{display:none}
+}

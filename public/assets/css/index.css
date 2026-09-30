@@ -36,13 +36,15 @@ padding:40px 0;
 overflow:hidden;
 }
 
+.hero-photo{display:none}
+
 .hero::before{
 content:"";
 position:absolute;
 inset:0;
 background:
 linear-gradient(90deg,rgba(0,0,0,0.82) 0%,rgba(0,0,0,0.56) 46%,rgba(0,0,0,0.2) 100%),
-url("/assets/img/img_home_2.png?v=20260929-2") center/cover no-repeat;
+url("/assets/img/img_home_2.png?v=20260930-1") center/cover no-repeat;
 }
 
 .hero-inner{
